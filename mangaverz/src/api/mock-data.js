@@ -90,7 +90,41 @@ let MANGACOLLECTION = [{
     end_date: '-',
     current_chapter: '200',
     status_reading: 'paused'
-  }
+  },
+  {
+    id: 3,
+    manga: {
+      id: 3,
+      name: 'Chainsaw Man',
+      chapters: '79',
+      isFinished: false,
+      author: 'Tatsuki Fujimoto',
+      release_date: '2019-03-04T00:00:00.000Z',
+      description: 'Set in a world where humanity is forced to live in cities surrounded by three enormous walls that protect them from gigantic man-eating humanoids referred to as Titans; the story follows Eren Yeager, who vows to exterminate the Titans after they bring about the destruction of his hometown and the death of his mother.',
+      thumbnail: '//'
+    },
+    start_date: '2022-05-12T00:00:00.000Z',
+    end_date: '-',
+    current_chapter: '200',
+    status_reading: 'paused'
+  },
+  {
+    id: 3,
+    manga: {
+      id: 3,
+      name: 'Chainsaw Man',
+      chapters: '79',
+      isFinished: false,
+      author: 'Tatsuki Fujimoto',
+      release_date: '2019-03-04T00:00:00.000Z',
+      description: 'Set in a world where humanity is forced to live in cities surrounded by three enormous walls that protect them from gigantic man-eating humanoids referred to as Titans; the story follows Eren Yeager, who vows to exterminate the Titans after they bring about the destruction of his hometown and the death of his mother.',
+      thumbnail: '//'
+    },
+    start_date: '2022-05-12T00:00:00.000Z',
+    end_date: '-',
+    current_chapter: '200',
+    status_reading: 'paused'
+  },
 ];
 
 let USER = [{
@@ -116,5 +150,6 @@ let USER = [{
 ];
 
 export {
-  MANGA
+  MANGA,
+  MANGACOLLECTION
 }

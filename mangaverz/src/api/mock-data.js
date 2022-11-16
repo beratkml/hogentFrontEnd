@@ -3,7 +3,7 @@ let MANGA = [{
     name: 'Attack on Titan',
     chapters: '139',
     isFinished: true,
-    author: 'Hajime Iisayama',
+    author: 'Hajime Isayama',
     release_date: '2013-04-13T00:00:00.000Z',
     description: 'Set in a world where humanity is forced to live in cities surrounded by three enormous walls that protect them from gigantic man-eating humanoids referred to as Titans; the story follows Eren Yeager, who vows to exterminate the Titans after they bring about the destruction of his hometown and the death of his mother.',
     thumbnail: '//'
@@ -38,6 +38,7 @@ let MANGA = [{
     description: 'Set in a world where humanity is forced to live in cities surrounded by three enormous walls that protect them from gigantic man-eating humanoids referred to as Titans; the story follows Eren Yeager, who vows to exterminate the Titans after they bring about the destruction of his hometown and the death of his mother.',
     thumbnail: '//'
   },
+
 ]
 
 let MANGACOLLECTION = [{

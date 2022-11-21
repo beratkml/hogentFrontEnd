@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const MANGAURL = 'http://localhost:9000/api/mangas';
-const GENREURL = 'http://localhost:9000/api/genres';
+
 
 export const getAllManga = async () => {
   const response = await axios.get(MANGAURL);
@@ -18,9 +18,4 @@ export const saveAction = async (manga) => {
     url: MANGAURL,
     data: data
   })
-}
-
-export const getAllGenres = async () => {
-  const response = await axios.get(GENREURL);
-  return response.data.items;
 }

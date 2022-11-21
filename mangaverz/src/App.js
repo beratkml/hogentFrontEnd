@@ -1,11 +1,12 @@
-import Manga from './components/manga/Manga';
-import MangaList from './components/manga/MangaList';
+import MangaPage from './components/pages/MangaPage';
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
-      <MangaList/>
-    </div>
+    <Routes>
+      <Route path='/' element={<MangaPage/>}/>
+    </Routes>
+    
   );
 }
 

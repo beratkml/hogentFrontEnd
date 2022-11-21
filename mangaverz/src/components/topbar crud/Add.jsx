@@ -19,8 +19,10 @@ import {
 import { useEffect, useState, memo,useRef } from "react";
 import { useDisclosure } from '@chakra-ui/react'
 import * as MangaApi from '../../api/mangas';
+import * as GenreAPI from '../../api/genres';
+import { useNavigate,redirect } from "react-router-dom";
 
-export default memo(function Add(){
+export default function Add(){
   const {
     handleSubmit,
     register,
@@ -29,6 +31,7 @@ export default memo(function Add(){
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef()
+  const navigate = useNavigate();
 
   const [genre,setGenre] = useState([]);
 
@@ -43,7 +46,7 @@ export default memo(function Add(){
 
   useEffect(()=>{
     const fetchGenres = async()=>{
-      const allGenres = await MangaApi.getAllGenres();
+      const allGenres = await GenreAPI.getAllGenres();
       setGenre(allGenres);
     }
     fetchGenres();
@@ -51,7 +54,7 @@ export default memo(function Add(){
   
   return (
     <>
-     <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
+     <Button ref={btnRef} colorScheme={"purple"} onClick={onOpen}>
         Open
       </Button>
       <Drawer isOpen={isOpen} placement='right' onClose={onClose} size={'sm'}>
@@ -63,9 +66,9 @@ export default memo(function Add(){
         <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name}>
             <FormLabel>Name</FormLabel>
-        <Input w={'base'} {...register('name')}/>
+        <Input w={'300px'} {...register('name')}/>
             <FormLabel>Chapters</FormLabel>
-        <Input w={'base'} type='number' {...register('chapters')}/>
+        <Input w={'300px'} type='number' {...register('chapters')}/>
           <FormLabel>Finished</FormLabel>
         <RadioGroup>
           <HStack spacing='24px'>
@@ -74,20 +77,19 @@ export default memo(function Add(){
           </HStack>
         </RadioGroup>
         <FormLabel>Author</FormLabel>
-        <Input w={'base'} {...register('author')}/>
+        <Input w={'300px'} {...register('author')}/>
         
         <FormLabel>Release date</FormLabel>
-        <Input w={'base'} type={"date"} {...register('release_date')}/>
+        <Input w={'300px'} type={"date"} {...register('release_date')}/>
 
         
         <FormLabel>Description</FormLabel>
-        <Input w={'base'} type={"text"} {...register('description')}/>
+        <Input w={'300px'} type={"text"} {...register('description')}/>
         
           <FormLabel>Genre</FormLabel>
-        <Select w={"500px"} placeholder="Selecte a genre">
+        <Select w={"300px"} placeholder="Selecte a genre">
           {genre.map(e=><option value={e.id} {...register('genreId')}>{e.name}</option>)}
         </Select>
-        
       </FormControl>
     
         <DrawerFooter>
@@ -99,5 +101,5 @@ export default memo(function Add(){
       </Drawer>
     </>
   )
-  });
+  };
   

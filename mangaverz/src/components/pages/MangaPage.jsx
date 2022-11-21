@@ -1,10 +1,12 @@
 
 import MangaList from "../manga/MangaList"
-import Topbar from "../Topbar"
+import Sidebar from "../Sidebar"
+import Navbar from "../Navbar"
 export default function MangaPage(){
   return(
     <>
-      <Topbar/>
+      <Navbar/>
+      <Sidebar/>
       <MangaList/>
     </>
   )

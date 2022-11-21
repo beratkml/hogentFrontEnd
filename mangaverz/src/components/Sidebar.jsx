@@ -3,7 +3,7 @@ import Add from './topbar crud/Add';
 import Delete from './topbar crud/Delete';
 import Read from './topbar crud/Read';
 import Update from './topbar crud/Update';
-export default function Topbar(){
+export default function Sidebar(){
   const acties = [{
     action:'Add',
     component:<Add/>

@@ -19,3 +19,7 @@ export const saveAction = async (manga) => {
     data: data
   })
 }
+
+export const deleteMangaById = async (id) => {
+  await axios.delete(`${MANGAURL}/${id}`);
+}

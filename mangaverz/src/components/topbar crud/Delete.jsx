@@ -1,6 +1,9 @@
-import {Box} from '@chakra-ui/react'
+import { Button } from "@chakra-ui/react"
+import { MinusIcon } from "@chakra-ui/icons"
 export default function Delete(){
   return (
-    <Box>Delete</Box>
+    <Button leftIcon={<MinusIcon/>} colorScheme={"red"}>
+        Delete manga
+      </Button>
   )
 }

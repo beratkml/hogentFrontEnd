@@ -3,10 +3,11 @@ import Add from './topbar crud/Add';
 import Delete from './topbar crud/Delete';
 import Read from './topbar crud/Read';
 import Update from './topbar crud/Update';
-export default function Sidebar(){
+import { useDisclosure } from '@chakra-ui/react';
+export default function Sidebar({isOpen,onOpen,onClose}){
   const acties = [{
     action:'Add',
-    component:<Add/>
+    component:<Add isOpen={isOpen} onOpen={onOpen} onClose={onClose}/>
   },
   {
     action:'Delete',

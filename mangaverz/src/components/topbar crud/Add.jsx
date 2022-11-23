@@ -17,32 +17,20 @@ import {
   DrawerCloseButton,
 } from '@chakra-ui/react'
 import { useEffect, useState, memo,useRef } from "react";
-import { useDisclosure } from '@chakra-ui/react'
+import {AddIcon} from '@chakra-ui/icons';
+import { useDisclosure,useToast } from '@chakra-ui/react'
 import * as MangaApi from '../../api/mangas';
 import * as GenreAPI from '../../api/genres';
-import { useNavigate,redirect } from "react-router-dom";
 
-export default function Add(){
+export default function Add({isOpen,onOpen,onClose}){
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm()
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef()
-  const navigate = useNavigate();
-
   const [genre,setGenre] = useState([]);
-
-  const onSubmit = async (data)=>{
-    await MangaApi.saveAction({
-      ...data,
-      chapters:parseInt(data.chapters),
-      isFinished:data.isFinished==='true'?true:false,
-    });
-    window.location.reload(false);
-  }
+  const toast = useToast();
 
   useEffect(()=>{
     const fetchGenres = async()=>{
@@ -51,11 +39,19 @@ export default function Add(){
     }
     fetchGenres();
   },[])
-  
+
+  const onSubmit = async (data)=>{
+    await MangaApi.saveAction({
+      ...data,
+      chapters:parseInt(data.chapters),
+      isFinished:data.isFinished==='true'?true:false,
+    });
+  }
+
   return (
     <>
-     <Button ref={btnRef} colorScheme={"purple"} onClick={onOpen}>
-        Open
+     <Button leftIcon={<AddIcon />} ref={btnRef} colorScheme={"teal"} onClick={onOpen}>
+        Add Manga
       </Button>
       <Drawer isOpen={isOpen} placement='right' onClose={onClose} size={'sm'}>
         <DrawerOverlay/>
@@ -93,7 +89,15 @@ export default function Add(){
       </FormControl>
     
         <DrawerFooter>
-        <Button isLoading={isSubmitting} type="submit">Submit</Button>
+        <Button onClick={()=>{
+          toast({
+            title: 'Manga has been added',
+            description: 'Success',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          })
+        }} isLoading={isSubmitting} type="submit">Submit</Button>
         </DrawerFooter>
         </form>
         </DrawerBody>

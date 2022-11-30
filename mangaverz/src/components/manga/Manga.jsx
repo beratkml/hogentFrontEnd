@@ -1,9 +1,9 @@
-import { Box, ButtonGroup, CardHeader, Divider, Heading } from '@chakra-ui/react'
-import { Card, CardBody, CardFooter,Stack,Text,Button } from '@chakra-ui/react'
+import {ButtonGroup, CardHeader, Divider } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter,Stack,Text,Button, Checkbox } from '@chakra-ui/react'
 export default function Manga(props){
-  const {name,description,author} = props
+  const {name,description,author,idArr,id} = props;
   return(
-    <Card _hover={{
+    <Card backgroundColor={idArr.includes(id)?"black":"white"} _hover={{
       boxShadow:'2xl',
       color: "teal.500",
     }} maxW='sm'>
@@ -12,7 +12,6 @@ export default function Manga(props){
           <CardHeader>
             <CardHeader pt='1' fontSize='xl' size='md'>{name}</CardHeader>
           </CardHeader>
-          
           <Text pt='3' fontSize='sm'>{description}</Text>
           <Text fontSize='xs'>Author: {author}</Text>
         </Stack>

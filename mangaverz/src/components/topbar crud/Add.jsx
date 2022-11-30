@@ -16,13 +16,14 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from '@chakra-ui/react'
-import { useEffect, useState, memo,useRef } from "react";
+import { useEffect, useState,useRef } from "react";
 import {AddIcon} from '@chakra-ui/icons';
-import { useDisclosure,useToast } from '@chakra-ui/react'
+import {useToast } from '@chakra-ui/react'
 import * as MangaApi from '../../api/mangas';
 import * as GenreAPI from '../../api/genres';
 
-export default function Add({isOpen,onOpen,onClose}){
+export default function Add(hookprop){
+  const {isOpen,onOpen,onClose} = hookprop;
   const {
     handleSubmit,
     register,
@@ -31,7 +32,7 @@ export default function Add({isOpen,onOpen,onClose}){
   const btnRef = useRef()
   const [genre,setGenre] = useState([]);
   const toast = useToast();
-
+  
   useEffect(()=>{
     const fetchGenres = async()=>{
       const allGenres = await GenreAPI.getAllGenres();
@@ -83,8 +84,8 @@ export default function Add({isOpen,onOpen,onClose}){
         <Input w={'300px'} type={"text"} {...register('description')}/>
         
           <FormLabel>Genre</FormLabel>
-        <Select w={"300px"} placeholder="Selecte a genre">
-          {genre.map(e=><option value={e.id} {...register('genreId')}>{e.name}</option>)}
+        <Select w={"300px"} onChange={(e)=>console.log(e.target)}  placeholder="Selecte a genre">
+          {genre.map((e,i,a)=><option key={e.id} value={e.id} {...register('genreId')}>{e.name}</option>)}
         </Select>
       </FormControl>
     

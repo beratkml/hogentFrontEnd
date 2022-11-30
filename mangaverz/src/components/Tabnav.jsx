@@ -1,26 +1,17 @@
 import {Tabs,TabList,TabPanel,TabPanels,Tab} from '@chakra-ui/react'
 import Add from './topbar crud/Add';
 import Delete from './topbar crud/Delete';
-import Read from './topbar crud/Read';
-import Update from './topbar crud/Update';
-import { useDisclosure } from '@chakra-ui/react';
-export default function Sidebar({isOpen,onOpen,onClose}){
+export default function Sidebar(hookprop){
+  const {isOpen,onOpen,onClose,idArr,setIdArr,manga,setManga} = hookprop;
+  
   const acties = [{
     action:'Add',
     component:<Add isOpen={isOpen} onOpen={onOpen} onClose={onClose}/>
   },
   {
     action:'Delete',
-    component:<Delete/>
-  },
-  {
-    action:'Update',
-    component:<Update/>
-  },
-  {
-    action:'Read',
-    component:<Read/>
-  }];
+    component:<Delete manga={manga} setManga={setManga} idArr={idArr} setIdArr={setIdArr}/>
+  },];
   return(
     <>
     <Tabs>
@@ -31,7 +22,7 @@ export default function Sidebar({isOpen,onOpen,onClose}){
       </TabList>
       <TabPanels>
         {acties.map((e,p)=>{
-          return <TabPanel>{e.component}</TabPanel>
+          return <TabPanel key={p}>{e.component}</TabPanel>
         })}
       </TabPanels>
     </Tabs>

@@ -9,7 +9,7 @@ export default function Navbar(){
         <Flex gap={4}>
           <Link as={ReactLink} to='/'>Mangaverz</Link>
           <Spacer/>
-          <Link as={ReactLink} to='/collection'>Collection</Link>
+          <Link as={ReactLink} to='/manga'>Manga</Link>
           <Link as={ReactLink} to='/profile'>Profile</Link>
         </Flex>
       </CardBody>

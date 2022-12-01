@@ -1,25 +1,49 @@
 import axios from 'axios';
+import {
+  useAuth0
+} from '@auth0/auth0-react';
+import {
+  useCallback
+} from 'react';
 
 const MANGAURL = 'http://localhost:9000/api/mangas';
 
-
-export const getAllManga = async () => {
-  const response = await axios.get(MANGAURL);
-  return response.data.items;
-}
-
-export const saveAction = async (manga) => {
+const useMangas = () => {
   const {
-    id,
-    ...data
-  } = manga;
-  await axios({
-    method: id ? 'PUT' : 'POST',
-    url: MANGAURL,
-    data: data
-  })
+    getAccessTokenSilently
+  } = useAuth0();
+
+  const getAllManga = useCallback(async () => {
+    const token = await getAccessTokenSilently();
+    const response = await axios.get(MANGAURL, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data.items;
+  }, [getAccessTokenSilently])
+
+  const saveAction = useCallback(async (manga) => {
+    const {
+      id,
+      ...data
+    } = manga;
+    await axios({
+      method: id ? 'PUT' : 'POST',
+      url: MANGAURL,
+      data: data
+    })
+  }, [])
+
+  const deleteMangaById = useCallback(async (id) => {
+    await axios.delete(`${MANGAURL}/${id}`);
+  }, [])
+
+  return {
+    getAllManga,
+    deleteMangaById,
+    saveAction
+  }
 }
 
-export const deleteMangaById = async (id) => {
-  await axios.delete(`${MANGAURL}/${id}`);
-}
+export default useMangas;

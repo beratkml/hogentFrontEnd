@@ -15,15 +15,23 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from '@chakra-ui/react'
 import { useEffect, useState,useRef } from "react";
 import {AddIcon} from '@chakra-ui/icons';
 import {useToast } from '@chakra-ui/react'
-import * as MangaApi from '../../api/mangas';
+import useMangas from '../../api/mangas';
 import * as GenreAPI from '../../api/genres';
 
 export default function Add(hookprop){
   const {isOpen,onOpen,onClose} = hookprop;
+  const {saveAction} = useMangas();
   const {
     handleSubmit,
     register,
@@ -42,7 +50,7 @@ export default function Add(hookprop){
   },[])
 
   const onSubmit = async (data)=>{
-    await MangaApi.saveAction({
+    await saveAction({
       ...data,
       chapters:parseInt(data.chapters),
       isFinished:data.isFinished==='true'?true:false,
@@ -51,15 +59,15 @@ export default function Add(hookprop){
 
   return (
     <>
-     <Button leftIcon={<AddIcon />} ref={btnRef} colorScheme={"teal"} onClick={onOpen}>
+    <Button leftIcon={<AddIcon />} ref={btnRef} colorScheme={"teal"} onClick={onOpen}>
         Add Manga
       </Button>
-      <Drawer isOpen={isOpen} placement='right' onClose={onClose} size={'sm'}>
-        <DrawerOverlay/>
-        <DrawerContent>
-        <DrawerCloseButton/>
-        <DrawerHeader>Add manga to global</DrawerHeader>
-        <DrawerBody>
+  <Modal isOpen={isOpen} placement='right' onClose={onClose} size={'sm'}>
+        <ModalOverlay/>
+        <ModalContent>
+        <ModalCloseButton/>
+        <ModalHeader>Add manga to global</ModalHeader>
+        <ModalBody>
         <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name}>
             <FormLabel>Name</FormLabel>
@@ -84,12 +92,12 @@ export default function Add(hookprop){
         <Input w={'300px'} type={"text"} {...register('description')}/>
         
           <FormLabel>Genre</FormLabel>
-        <Select w={"300px"} onChange={(e)=>console.log(e.target)}  placeholder="Selecte a genre">
-          {genre.map((e,i,a)=><option key={e.id} value={e.id} {...register('genreId')}>{e.name}</option>)}
+        <Select {...register('genreId')} w={"300px"} onChange={(e)=>console.log(e.target)}  placeholder="Selecte a genre">
+        {genre.map((e, i, a) => {console.log(e.id); return (<option key={e.id} value={e.id}>{e.name}</option>)}) }
         </Select>
       </FormControl>
     
-        <DrawerFooter>
+        <ModalFooter>
         <Button onClick={()=>{
           toast({
             title: 'Manga has been added',
@@ -99,12 +107,13 @@ export default function Add(hookprop){
             isClosable: true,
           })
         }} isLoading={isSubmitting} type="submit">Submit</Button>
-        </DrawerFooter>
+        </ModalFooter>
         </form>
-        </DrawerBody>
-        </DrawerContent>
-      </Drawer>
+        </ModalBody>
+        </ModalContent>
+      </Modal>
     </>
   )
   };
+
   

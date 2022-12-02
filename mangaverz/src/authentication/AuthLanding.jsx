@@ -1,4 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
+import { Card, CardBody, CardFooter, CardHeader, Center, Spacer, Text } from '@chakra-ui/react';
 import { Navigate } from 'react-router-dom';
 import Error from '../components/Error';
 import LoginButton from './LoginButton';
@@ -7,6 +8,7 @@ export default function AuthLanding() {
   const { error, isAuthenticated, isLoading } = useAuth0();
 
   if (error) {
+    <Center>
     <div className="container">
       <div className="row">
         <div className="col">
@@ -18,7 +20,9 @@ export default function AuthLanding() {
           <LoginButton />
         </div>
       </div>
-    </div>;
+    </div>
+    </Center>
+
   }
 
   if (!isLoading && isAuthenticated) {
@@ -27,15 +31,18 @@ export default function AuthLanding() {
 
   if (!isLoading && !isAuthenticated) {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <h1>Login required</h1>
-            <p>You need to login to access this page.</p>
+      <Center>
+        <Card>
+          <CardHeader>Login required</CardHeader>
+          <CardBody>
+            <Text>You need to login to access this page.</Text>
+            <Spacer/>
+            <CardFooter>
             <LoginButton />
-          </div>
-        </div>
-      </div>
+            </CardFooter>
+          </CardBody>
+        </Card>
+      </Center>
     );
   }
 

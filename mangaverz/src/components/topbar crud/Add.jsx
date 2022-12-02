@@ -59,7 +59,7 @@ export default function Add(hookprop){
 
   return (
     <>
-    <Button leftIcon={<AddIcon />} ref={btnRef} colorScheme={"teal"} onClick={onOpen}>
+    <Button margin={3} size={'sm'} leftIcon={<AddIcon />} ref={btnRef} colorScheme={"teal"} onClick={onOpen}>
         Add Manga
       </Button>
   <Modal isOpen={isOpen} placement='right' onClose={onClose} size={'sm'}>

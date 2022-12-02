@@ -3,6 +3,7 @@ import { Link as ReactLink } from "react-router-dom";
 import {Link} from '@chakra-ui/react'
 import AuthenticationButton from "../authentication/AuthButton";
 
+
 export default function Navbar(){
   return(
     <Card>
@@ -10,8 +11,8 @@ export default function Navbar(){
         <Flex gap={4}>
           <Link as={ReactLink} to='/'><Button variant='ghost'>Mangaverz</Button></Link>
           <Spacer/>
-          <Link as={ReactLink} to='/manga'><Button variant='ghost'>Manga</Button></Link>
-          <Link as={ReactLink} to='/profile'><Button variant='ghost'>Profile</Button></Link>
+          <Link as={ReactLink} to='/manga'><Button variant='ghost'>Mangas</Button></Link>
+          <Link as={ReactLink} to='/admin-manga'><Button variant='ghost'>Admin-Manga</Button></Link>
           <AuthenticationButton/>
         </Flex>
       </CardBody>

@@ -14,18 +14,15 @@ export default function MangaList(props){
     };
     refreshMangas();
   },[isOpen,setManga,getAllManga]);
-  
   return(
     <>
     <SimpleGrid columns={{base:1,md:2,lg:3,xl:4}} spacing={5}>
-      <CheckboxGroup>
       {manga.map(e=><Box key={e.id} as="div" onClick={()=>{
         if(!(idArr.includes(e.id))){
           setIdArr(idArr.concat(e.id));
         }
         console.log(idArr);
       }}><Manga idArr={idArr} {...e}/></Box>)}
-      </CheckboxGroup>
     </SimpleGrid>
     </>
   )

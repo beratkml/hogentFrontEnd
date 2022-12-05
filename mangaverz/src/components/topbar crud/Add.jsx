@@ -103,7 +103,7 @@ export default function Add(hookprop){
             title: 'Manga has been added',
             description: 'Success',
             status: 'success',
-            duration: 3000,
+            duration: 2000,
             isClosable: true,
           })
         }} isLoading={isSubmitting} type="submit">Submit</Button>

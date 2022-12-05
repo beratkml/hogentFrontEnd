@@ -1,8 +1,8 @@
-import {useTable, useRowSelect} from 'react-table';
+import {useTable, useRowSelect,usePagination} from 'react-table';
 import useMangas from '../../../api/mangas';
 import {COLUMNS} from '../table/columns';
 import { useMemo,useCallback, useEffect } from 'react';
-import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { Checkbox } from './Checkbox';
 import Delete from '../../topbar crud/Delete';
 import Add from '../../topbar crud/Add';
@@ -22,10 +22,13 @@ export default function MangaTable(props){
     mangas();
   },[isOpen,mangas]);
 
+  
+
   const tableInstance = useTable({
     columns: columns,
     data: manga
   },
+  usePagination,
   useRowSelect,
   (tableHooks)=>{
     tableHooks.visibleColumns.push((column)=>{
@@ -45,12 +48,22 @@ export default function MangaTable(props){
   }
   )
 
-  const {getTableProps,getTableBodyProps,headerGroups,rows,prepareRow,selectedFlatRows} = tableInstance;
+  const {getTableProps,getTableBodyProps,headerGroups,page,prepareRow,selectedFlatRows,nextPage,previousPage,canNextPage,canPreviousPage} = tableInstance;
+
+  const handlePrevious = useCallback(()=>{
+    previousPage();
+  },[previousPage])
+
+  const handleNext = useCallback(()=>{
+    nextPage();
+  },[nextPage])
 
   return(
     <>
+    <ButtonGroup>
     <Add isOpen={isOpen} onOpen={onOpen} onClose={onClose}/>
     <Delete setManga={setManga} selectedFlatRows={selectedFlatRows}/>
+    </ButtonGroup>
     <TableContainer>
     <Table size={'sm'} {...getTableProps()}>
       <Thead>
@@ -68,7 +81,7 @@ export default function MangaTable(props){
       </Thead>
       <Tbody {...getTableBodyProps()}>
         {
-          rows.map(e=>{
+          page.map(e=>{
             prepareRow(e);
             return (
             <Tr {...e.getRowProps()}>
@@ -83,6 +96,10 @@ export default function MangaTable(props){
         }
       </Tbody>
     </Table>
+    <ButtonGroup>
+      <Button onClick={handlePrevious} colorScheme='facebook' disabled={!canPreviousPage}>Previous</Button>
+      <Button onClick={handleNext} colorScheme='facebook' disabled={!canNextPage}>Next</Button>
+    </ButtonGroup>
     </TableContainer>
     </>
   )

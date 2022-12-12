@@ -1,11 +1,14 @@
+import { Spinner,Box,Heading,Center } from '@chakra-ui/react'
 export default function Loader({ loading }) {
   if (loading) {
     return (
       <>
-        <div className="spinner-border" data-cy="loading">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <p>Loading...</p>
+      <Box marginTop={40}>
+      <Heading align={'center'}>Mangaverz</Heading>
+      <Center>
+        <Spinner/>
+      </Center>
+    </Box>
       </>
     );
   }

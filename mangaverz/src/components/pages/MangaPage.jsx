@@ -6,6 +6,7 @@ import { useState } from "react";
 export default function MangaAdminPage(){
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [manga,setManga] = useState([]);
+  
   return(
     <>
       <Navbar/>

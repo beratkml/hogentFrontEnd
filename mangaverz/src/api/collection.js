@@ -24,6 +24,7 @@ const useCollections = () => {
   }, [getAccessTokenSilently])
 
   const saveAction = useCallback(async (manga) => {
+    const token = await getAccessTokenSilently();
     const {
       id,
       ...data
@@ -31,9 +32,12 @@ const useCollections = () => {
     await axios({
       method: id ? 'PUT' : 'POST',
       url: COLLECTIONURL,
-      data: data
+      data: data,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
-  }, [])
+  }, [getAccessTokenSilently])
 
   const deleteCollectionById = useCallback(async (id) => {
     await axios.delete(`${COLLECTIONURL}/${id}`);

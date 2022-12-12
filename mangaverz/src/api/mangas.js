@@ -23,7 +23,18 @@ const useMangas = () => {
     return response.data.items;
   }, [getAccessTokenSilently])
 
+  const getMangaById = useCallback(async (id) => {
+    const token = await getAccessTokenSilently();
+    const response = await axios.get(`${MANGAURL}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data.items;
+  }, [getAccessTokenSilently]);
+
   const saveAction = useCallback(async (manga) => {
+    const token = await getAccessTokenSilently();
     const {
       id,
       ...data
@@ -31,9 +42,12 @@ const useMangas = () => {
     await axios({
       method: id ? 'PUT' : 'POST',
       url: MANGAURL,
-      data: data
+      data: data,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
-  }, [])
+  }, [getAccessTokenSilently])
 
   const deleteMangaById = useCallback(async (id) => {
     await axios.delete(`${MANGAURL}/${id}`);
@@ -42,7 +56,8 @@ const useMangas = () => {
   return {
     getAllManga,
     deleteMangaById,
-    saveAction
+    saveAction,
+    getMangaById
   }
 }
 

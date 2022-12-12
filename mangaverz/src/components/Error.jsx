@@ -1,12 +1,16 @@
+import { Alert,AlertIcon,AlertTitle,AlertDescription } from "@chakra-ui/react";
+
 export default function Error({ error }) {
   if (error) {
     return (
-      <div className="alert alert-danger" data-cy="transactions_error">
-        <h4 className="alert-heading">An error occured</h4>
-        {error.message || JSON.stringify(error)}
-      </div>
+      <>
+      <Alert status='error'>
+      <AlertIcon />
+      <AlertTitle>An error occured</AlertTitle>
+      <AlertDescription>{error.message || JSON.stringify(error)}</AlertDescription>
+    </Alert>
+      </>
     );
   }
-
   return null;
 }

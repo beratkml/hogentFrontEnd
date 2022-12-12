@@ -5,6 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter } from "react-router-dom";
 import MyAuth0Provider from './context/MyAuth0Provider';
+import { ColorModeScript } from '@chakra-ui/react'
+import theme from './theme'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,6 +14,7 @@ root.render(
     <MyAuth0Provider>
       <BrowserRouter>
         <ChakraProvider>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <App />
         </ChakraProvider>
       </BrowserRouter>

@@ -8,13 +8,6 @@ import {
   HStack,
   Radio,
   Select,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -59,7 +52,7 @@ export default function Add(hookprop){
 
   return (
     <>
-    <Button margin={3} size={'sm'} leftIcon={<AddIcon />} ref={btnRef} colorScheme={"teal"} onClick={onOpen}>
+    <Button margin={3} size={'sm'} leftIcon={<AddIcon />} ref={btnRef} colorScheme={"blackAlpha"} onClick={onOpen}>
         Add Manga
       </Button>
   <Modal isOpen={isOpen} placement='right' onClose={onClose} size={'sm'}>
@@ -92,7 +85,7 @@ export default function Add(hookprop){
         <Input w={'300px'} type={"text"} {...register('description')}/>
         
           <FormLabel>Genre</FormLabel>
-        <Select {...register('genreId')} w={"300px"} onChange={(e)=>console.log(e.target)}  placeholder="Selecte a genre">
+        <Select {...register('genreId')} w={"300px"}  placeholder="Selecte a genre">
         {genre.map((e, i, a) => {console.log(e.id); return (<option key={e.id} value={e.id}>{e.name}</option>)}) }
         </Select>
       </FormControl>

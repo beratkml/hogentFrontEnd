@@ -1,7 +1,15 @@
-import {ButtonGroup, CardHeader, Divider } from '@chakra-ui/react'
+import {ButtonGroup, CardHeader, Divider, Heading, Image } from '@chakra-ui/react'
+import {AddIcon} from '@chakra-ui/icons'
 import { Card, CardBody, CardFooter,Stack,Text,Button } from '@chakra-ui/react'
+import { useCallback } from 'react';
+import useCollection from '../../api/collection'
+import Add from '../mangacollection/Add';
 export default function Manga(props){
-  const {name,description,author} = props;
+  const {id,name,description,author} = props;
+  const {saveAction} = useCollection();
+  const handleAdd = useCallback(async()=>{
+    console.log(id);
+  },[id])
   return(
     <Card _hover={{
       boxShadow:'2xl',
@@ -20,39 +28,10 @@ export default function Manga(props){
       <CardFooter maxW='sm'>
           <ButtonGroup spacing='2'>
             <Button variant={'solid'} colorScheme={'teal'}>See details</Button>
+            <Add mangaId={id}/>
           </ButtonGroup>
         </CardFooter>
     </Card>
   )
 }
 
-
-
- 
-
-
-
-
-
-
-// export default function Manga(props){
-//   const {
-//     name,
-//     author,
-//     release_date,
-//     description,
-//     thumbnail
-//   } = props
-//   return(
-//     <div className="container" >
-//       <div className="shadow p-3 mb-5 bg-white rounded-right">
-//       <div className="card border-light mb-3">
-//         <h6 className="card-header">{name}</h6>
-//         <p className="card-text">{description}</p>
-//         <p className="card-text"><small className="text-muted">Author: {author}</small></p>
-//         <button type="button" className="btn btn-secondary btn-lg btn-block">Read more</button>
-//       </div>
-//     </div>
-//     </div>
-//   )
-// }

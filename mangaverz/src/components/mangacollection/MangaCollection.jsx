@@ -1,13 +1,26 @@
-export default function Manga(props){
-  const {id,name,chapters,description, } = props
-  return(
+import { Box, SimpleGrid } from "@chakra-ui/react";
+import { useCallback } from "react";
+import { useEffect,useState } from "react";
+import useCollections from "../../api/collection";
+import CollectionItem from "./CollectionItem";
+
+export default function MangaCollection(){
+  const [collection,setCollection] = useState([]);
+  const {getAllCollection} = useCollections([]);
+
+  useEffect(()=>{
+    const refreshCollection = async()=>{
+      const collections = await getAllCollection();
+      setCollection(collections);
+    };
+    refreshCollection();
+  },[getAllCollection]);
+  console.log(collection);
+  return (
     <>
-    <div className="">
-    <div className="" style={{width:"50%"}}>{id}</div>
-    <div>{name}</div>
-    <div>{chapters}</div>
-    <div>{description}</div>
-    </div>
+    <SimpleGrid  spacing={1}>
+      {collection.map((e)=><Box key={e.id} as="div"><CollectionItem {...e}/></Box>)}
+    </SimpleGrid>
     </>
-  )
+  );
 }

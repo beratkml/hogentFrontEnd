@@ -8,7 +8,7 @@ import AuthenticationButton from "../authentication/AuthButton";
 export default function Navbar(){
   const { colorMode, toggleColorMode } = useColorMode()
   return(
-    <Card boxShadow='lg' borderRadius={'0'}>
+    <Card mb={'30px'} boxShadow='lg' borderRadius={'0'}>
       <CardBody>
         <Flex gap={4} display={['none','none','flex','flex']}>
           <Button variant='ghost' onClick={toggleColorMode}>{colorMode === 'light' ? <MoonIcon/> : <SunIcon/>}</Button>

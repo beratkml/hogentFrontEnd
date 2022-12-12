@@ -18,7 +18,7 @@ export default function Delete(props){
     refreshMangas();
   },[deleteMangaById,getAllManga,selectedFlatRows,setManga]);
   return(
-    <Button margin={3} size={'sm'} onClick={handleDelete} leftIcon={<MinusIcon />} colorScheme={'red'}>Delete Manga</Button>
+    <Button margin={3} onClick={handleDelete} leftIcon={<MinusIcon />} colorScheme={'red'}>Delete Manga</Button>
   )
 }
 

@@ -17,7 +17,7 @@ export default function MangaList(props){
   },[isOpen,setManga,getAllManga]);
   return(
     <>
-    <SimpleGrid columns={{base:1,md:2,lg:3,xl:4}} spacing={1}>
+    <SimpleGrid width={["100%","100%","100%","100%"]} columns={{base:1,md:2,lg:3,xl:4}} spacing={2}>
       {manga.map(e=><Box key={e.id} as="div"><Manga {...e}/></Box>)}
     </SimpleGrid>
     </>

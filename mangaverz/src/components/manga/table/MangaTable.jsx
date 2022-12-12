@@ -2,7 +2,8 @@ import {useTable, useRowSelect,usePagination} from 'react-table';
 import useMangas from '../../../api/mangas';
 import {COLUMNS} from '../table/columns';
 import { useMemo,useCallback, useEffect } from 'react';
-import { Box, Button, ButtonGroup, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Center, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import {ArrowBackIcon,ArrowForwardIcon} from '@chakra-ui/icons'
 import { Checkbox } from './Checkbox';
 import Delete from '../../topbar crud/Delete';
 import Add from '../../topbar crud/Add';
@@ -96,10 +97,13 @@ export default function MangaTable(props){
         }
       </Tbody>
     </Table>
+    <Center>
     <ButtonGroup>
-      <Button onClick={handlePrevious} colorScheme='facebook' disabled={!canPreviousPage}>Previous</Button>
-      <Button onClick={handleNext} colorScheme='facebook' disabled={!canNextPage}>Next</Button>
+      <Button onClick={handlePrevious} colorScheme='facebook' disabled={!canPreviousPage}><ArrowBackIcon/></Button>
+      <Button onClick={handleNext} colorScheme='facebook' disabled={!canNextPage}><ArrowForwardIcon/></Button>      
     </ButtonGroup>
+    </Center>
+    
     </TableContainer>
     </>
   )

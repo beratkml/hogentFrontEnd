@@ -1,4 +1,4 @@
-import { Box,Card,CardBody,Stack,CardHeader,Text,Divider,CardFooter,ButtonGroup,Button,Image,Heading } from "@chakra-ui/react";
+import { Box,Card,CardBody,Stack,CardHeader,Text,Divider,CardFooter,ButtonGroup,Button,Image,Heading, Center } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useCallback,useState } from "react";
 import useMangas from "../../api/mangas";
@@ -18,22 +18,24 @@ export default function CollectionItem(props){
 
   return (
     <>
-    <Card
+    <Card boxShadow='lg' width={['100%','100%','100%','800px']}
   direction={{ base: 'column', sm: 'row' }}
   overflow='hidden'
   variant='outline'
->
+  height={'100%'}
+  _hover={{
+    boxShadow:'2xl',
+    color: "teal.500",
+  }}>
   <Image
     objectFit='cover'
     maxW={{ base: '100%', sm: '200px' }}
     src='https://static.standaard.be/Assets/Images_Upload/2010/05/17/B1_GGV2Q67SI.1+GEFVredders.jpg?maxheight=411&maxwidth=731&scale=both'
     alt='Caffe Latte'
   />
-
   <Stack>
     <CardBody>
       <Heading size='md'>{manga.name}</Heading>
-
       <Text fontSize='sm' py='2'>
         {manga.description}
       </Text>

@@ -98,7 +98,7 @@ export default function MangaTable(props){
       </Tbody>
     </Table>
     <Center>
-    <ButtonGroup>
+    <ButtonGroup m={'5px'}>
       <Button onClick={handlePrevious} colorScheme='facebook' disabled={!canPreviousPage}><ArrowBackIcon/></Button>
       <Button onClick={handleNext} colorScheme='facebook' disabled={!canNextPage}><ArrowForwardIcon/></Button>      
     </ButtonGroup>

@@ -1,4 +1,4 @@
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box, Center, SimpleGrid } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useEffect,useState } from "react";
 import useCollections from "../../api/collection";
@@ -18,9 +18,11 @@ export default function MangaCollection(){
   console.log(collection);
   return (
     <>
+    <Center>
     <SimpleGrid  spacing={1}>
       {collection.map((e)=><Box key={e.id} as="div"><CollectionItem {...e}/></Box>)}
     </SimpleGrid>
+    </Center>
     </>
   );
 }

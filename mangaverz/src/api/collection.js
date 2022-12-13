@@ -6,7 +6,7 @@ import {
   useCallback
 } from 'react';
 
-const baseurl = `${process.env.REACT_APP_API_URL}/collections`;
+const baseurl = `${process.env.REACT_APP_API_URL}/api/collections`;
 
 const useCollections = () => {
   const {

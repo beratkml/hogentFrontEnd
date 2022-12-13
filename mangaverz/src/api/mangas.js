@@ -6,7 +6,7 @@ import {
   useCallback
 } from 'react';
 
-const baseurl = `${process.env.REACT_APP_API_URL}/mangas`;
+const baseurl = `${process.env.REACT_APP_API_URL}/api/mangas`;
 
 const useMangas = () => {
   const {

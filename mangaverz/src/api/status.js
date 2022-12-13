@@ -6,7 +6,7 @@ import {
   useCallback
 } from 'react';
 
-const baseurl = `${process.env.REACT_APP_API_URL}/status`;
+const baseurl = `${process.env.REACT_APP_API_URL}/api/status`;
 
 const useStatus = () => {
   const {

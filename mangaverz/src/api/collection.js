@@ -6,7 +6,7 @@ import {
   useCallback
 } from 'react';
 
-const COLLECTIONURL = 'http://localhost:9000/api/collections';
+const baseurl = `${process.env.REACT_APP_BASEURL}/collections`;
 
 const useCollections = () => {
   const {
@@ -15,7 +15,7 @@ const useCollections = () => {
 
   const getAllCollection = useCallback(async () => {
     const token = await getAccessTokenSilently();
-    const response = await axios.get(COLLECTIONURL, {
+    const response = await axios.get(baseurl, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -31,7 +31,7 @@ const useCollections = () => {
     } = manga;
     await axios({
       method: id ? 'PUT' : 'POST',
-      url: COLLECTIONURL,
+      url: baseurl,
       data: data,
       headers: {
         Authorization: `Bearer ${token}`
@@ -40,7 +40,7 @@ const useCollections = () => {
   }, [getAccessTokenSilently])
 
   const deleteCollectionById = useCallback(async (id) => {
-    await axios.delete(`${COLLECTIONURL}/${id}`);
+    await axios.delete(`${baseurl}/${id}`);
   }, [])
 
   return {

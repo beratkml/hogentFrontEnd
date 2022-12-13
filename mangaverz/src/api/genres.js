@@ -1,7 +1,7 @@
 import axios from 'axios';
-const GENREURL = 'http://localhost:9000/api/genres';
+const baseurl = `${process.env.REACT_APP_BASEURL}/collections`;
 
 export const getAllGenres = async () => {
-  const response = await axios.get(GENREURL);
+  const response = await axios.get(baseurl);
   return response.data.items;
 }

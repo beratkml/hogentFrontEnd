@@ -6,7 +6,7 @@ import {
   useCallback
 } from 'react';
 
-const STATUSURL = 'http://localhost:9000/api/status';
+const baseurl = `${process.env.REACT_APP_BASEURL}/collections`;
 
 const useStatus = () => {
   const {
@@ -14,7 +14,7 @@ const useStatus = () => {
   } = useAuth0();
 
   const getAllStatuses = useCallback(async () => {
-    const response = await axios.get(STATUSURL, {});
+    const response = await axios.get(baseurl, {});
     return response.data.items;
   }, [])
 
@@ -26,7 +26,7 @@ const useStatus = () => {
     } = manga;
     await axios({
       method: id ? 'PUT' : 'POST',
-      url: STATUSURL,
+      url: baseurl,
       data: data,
       headers: {
         Authorization: `Bearer ${token}`

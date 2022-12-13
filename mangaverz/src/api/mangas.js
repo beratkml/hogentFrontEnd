@@ -6,7 +6,7 @@ import {
   useCallback
 } from 'react';
 
-const MANGAURL = 'http://localhost:9000/api/mangas';
+const baseurl = `${process.env.REACT_APP_BASEURL}/collections`;
 
 const useMangas = () => {
   const {
@@ -15,7 +15,7 @@ const useMangas = () => {
 
   const getAllManga = useCallback(async () => {
     const token = await getAccessTokenSilently();
-    const response = await axios.get(MANGAURL, {
+    const response = await axios.get(baseurl, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -25,7 +25,7 @@ const useMangas = () => {
 
   const getMangaById = useCallback(async (id) => {
     const token = await getAccessTokenSilently();
-    const response = await axios.get(`${MANGAURL}/${id}`, {
+    const response = await axios.get(`${baseurl}/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -41,7 +41,7 @@ const useMangas = () => {
     } = manga;
     await axios({
       method: id ? 'PUT' : 'POST',
-      url: MANGAURL,
+      url: baseurl,
       data: data,
       headers: {
         Authorization: `Bearer ${token}`
@@ -50,7 +50,7 @@ const useMangas = () => {
   }, [getAccessTokenSilently])
 
   const deleteMangaById = useCallback(async (id) => {
-    await axios.delete(`${MANGAURL}/${id}`);
+    await axios.delete(`${baseurl}/${id}`);
   }, [])
 
   return {

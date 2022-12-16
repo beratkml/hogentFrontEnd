@@ -4,6 +4,7 @@ import Navbar from "../Navbar"
 import { useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 import MangaTable from "../manga/table/MangaTable";
+import Footer from "../Footer";
 
 export default function MangaAdminPage(){
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -12,6 +13,7 @@ export default function MangaAdminPage(){
     <>
       <Navbar/>
       <MangaTable  manga={manga} setManga={setManga} isOpen={isOpen} onOpen={onOpen} onClose={onClose}/>
+      <Footer/>
     </>
   )
 }

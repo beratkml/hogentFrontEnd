@@ -45,29 +45,33 @@ export default memo( function Add(hookprop){
     fetchGenres();
   },[])
 
-  const handleMessage = useCallback(()=>{
-    toast({
-      title: error==null?'Manga has been added':"Manga has not been added",
-      description: error==null?'Success':"Fail",
-      status: error==null?'success':"error",
-      duration: 2000,
-      isClosable: true,
-    })
-  },[toast,error])
-
   const onSubmit = useCallback(async (data)=>{
     try{
+      setError(null);
       await saveAction({
         ...data,
         chapters:parseInt(data.chapters),
         isFinished:data.isFinished==='true'?true:false,
       });
-      setError(null);
+      toast({
+        title: 'Manga has been added',
+        description: 'Success',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
+      onClose();
     }catch(err){
       setError(err);
+      toast({
+        title: "An error has occured",
+        description: "Action failed",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      })
     }
-    onClose();
-  },[saveAction,onClose]);
+  },[saveAction,setError,toast,onClose]);
 
   return (
     <>
@@ -110,7 +114,7 @@ export default memo( function Add(hookprop){
       </FormControl>
     
         <ModalFooter>
-        <Button  onClick={handleMessage} isLoading={isSubmitting} type="submit">Submit</Button>
+        <Button isLoading={isSubmitting} type="submit">Submit</Button>
         </ModalFooter>
         </form>
         </ModalBody>

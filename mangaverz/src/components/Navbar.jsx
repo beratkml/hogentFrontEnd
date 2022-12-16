@@ -14,9 +14,9 @@ export default function Navbar(){
           <Button variant='ghost' onClick={toggleColorMode}>{colorMode === 'light' ? <MoonIcon/> : <SunIcon/>}</Button>
           <Link as={ReactLink} to='/'><Button variant='ghost'>Mangaverz</Button></Link>
           <Spacer/>
-          <Link as={ReactLink} to='/manga'><Button variant='ghost'>Mangas</Button></Link>
-          <Link as={ReactLink} to='/admin-manga'><Button variant='ghost'>Admin-Manga</Button></Link>
-          <Link as={ReactLink} to='/collection'><Button variant='ghost'>Collection</Button></Link>
+          {/* <Link as={ReactLink} to='/manga'><Button variant='ghost'>Mangas</Button></Link> */}
+          {/* <Link as={ReactLink} to='/admin-manga'><Button variant='ghost'>Admin-Manga</Button></Link> */}
+          {/* <Link as={ReactLink} to='/collection'><Button variant='ghost'>Collection</Button></Link> */}
           <AuthenticationButton/>
         </Flex>
       </CardBody>

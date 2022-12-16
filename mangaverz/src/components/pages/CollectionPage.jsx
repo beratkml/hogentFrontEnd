@@ -5,7 +5,7 @@ import Footer from "../Footer";
 export default function CollectionPage(){
   return(
     <>
-    <Navbar/>
+    {/* <Navbar/> */}
     <MangaCollection/>
     <Footer/>
     </>

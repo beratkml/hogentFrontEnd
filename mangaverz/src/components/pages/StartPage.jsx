@@ -7,7 +7,7 @@ import Footer from "../Footer";
 export default function StartPage(){
   return (
     <>
-    <Navbar/>
+    {/* <Navbar/> */}
     <Box marginTop={40}>
       <Heading align={'center'}>Mangaverz</Heading>
       <Text align={'center'} fontSize='xl'>Add your favorite manga to your collection</Text>

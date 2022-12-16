@@ -16,13 +16,15 @@ import {
   ModalBody,
   ModalFooter,
 } from '@chakra-ui/react'
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState,useRef, memo } from "react";
 import {AddIcon} from '@chakra-ui/icons';
 import {useToast } from '@chakra-ui/react'
 import useMangas from '../../api/mangas';
+import Error from '../Error';
 import * as GenreAPI from '../../api/genres';
+import { useCallback } from "react";
 
-export default function Add(hookprop){
+export default memo( function Add(hookprop){
   const {isOpen,onOpen,onClose} = hookprop;
   const {saveAction} = useMangas();
   const {
@@ -33,6 +35,7 @@ export default function Add(hookprop){
   const btnRef = useRef()
   const [genre,setGenre] = useState([]);
   const toast = useToast();
+  const [error, setError] = useState();
   
   useEffect(()=>{
     const fetchGenres = async()=>{
@@ -42,13 +45,29 @@ export default function Add(hookprop){
     fetchGenres();
   },[])
 
-  const onSubmit = async (data)=>{
-    await saveAction({
-      ...data,
-      chapters:parseInt(data.chapters),
-      isFinished:data.isFinished==='true'?true:false,
-    });
-  }
+  const handleMessage = useCallback(()=>{
+    toast({
+      title: error==null?'Manga has been added':"Manga has not been added",
+      description: error==null?'Success':"Fail",
+      status: error==null?'success':"error",
+      duration: 2000,
+      isClosable: true,
+    })
+  },[toast,error])
+
+  const onSubmit = useCallback(async (data)=>{
+    try{
+      await saveAction({
+        ...data,
+        chapters:parseInt(data.chapters),
+        isFinished:data.isFinished==='true'?true:false,
+      });
+      setError(null);
+    }catch(err){
+      setError(err);
+    }
+    onClose();
+  },[saveAction,onClose]);
 
   return (
     <>
@@ -91,15 +110,7 @@ export default function Add(hookprop){
       </FormControl>
     
         <ModalFooter>
-        <Button onClick={()=>{
-          toast({
-            title: 'Manga has been added',
-            description: 'Success',
-            status: 'success',
-            duration: 2000,
-            isClosable: true,
-          })
-        }} isLoading={isSubmitting} type="submit">Submit</Button>
+        <Button  onClick={handleMessage} isLoading={isSubmitting} type="submit">Submit</Button>
         </ModalFooter>
         </form>
         </ModalBody>
@@ -107,6 +118,6 @@ export default function Add(hookprop){
       </Modal>
     </>
   )
-  };
+  });
 
   

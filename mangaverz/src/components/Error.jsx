@@ -7,7 +7,7 @@ export default function Error({ error }) {
       <Alert status='error'>
       <AlertIcon />
       <AlertTitle>An error occured</AlertTitle>
-      <AlertDescription>{error.message || JSON.stringify(error)}</AlertDescription>
+      <AlertDescription>{error.message|| JSON.stringify(error)}</AlertDescription>
     </Alert>
       </>
     );

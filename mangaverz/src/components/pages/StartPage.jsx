@@ -31,9 +31,9 @@ export default function StartPage(){
       </ButtonGroup>
       </Center>
     </Box>
-    <Input type={'file'} onChange={(e)=>{setImageSelected(e.target.files[0])}}></Input>
-    <Button onClick={uploadImage}>Upload image</Button>
-    <Image cloudName="dqlnsjr7b" publicId={idd}/>
+    {/* <Input type={'file'} onChange={(e)=>{setImageSelected(e.target.files[0])}}></Input>
+    <Button onClick={uploadImage}>Upload image</Button> */}
+    {/* <Image cloudName="dqlnsjr7b" publicId={idd}/> */}
     {/* <Footer/> */}
     </>
   )

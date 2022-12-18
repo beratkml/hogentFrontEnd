@@ -29,5 +29,5 @@ export const COLUMNS = [{
   {
     Header: 'Genre',
     accessor: 'genre.name'
-  }
+  },
 ]

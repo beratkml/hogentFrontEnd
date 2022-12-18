@@ -15,14 +15,17 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Center
 } from '@chakra-ui/react'
 import { useEffect, useState,useRef, memo } from "react";
 import {AddIcon} from '@chakra-ui/icons';
-import {useToast } from '@chakra-ui/react'
+import {useToast, Text } from '@chakra-ui/react'
 import useMangas from '../../api/mangas';
 import Error from '../Error';
 import * as GenreAPI from '../../api/genres';
+import axios from "axios";
 import { useCallback } from "react";
+import {Image} from "cloudinary-react";
 
 export default memo( function Add(hookprop){
   const {isOpen,onOpen,onClose} = hookprop;
@@ -45,6 +48,37 @@ export default memo( function Add(hookprop){
     fetchGenres();
   },[])
 
+  const [imageSelected,setImageSelected] = useState("");
+  const [idd,setIdd] = useState("");
+  const uploadImage = ()=>{
+    try{
+      setError(null);
+      const formData = new FormData();
+    formData.append("file",imageSelected);
+    formData.append("upload_preset","xqtbo1he");
+
+    axios.post("https://api.cloudinary.com/v1_1/dqlnsjr7b/image/upload",formData).then((e)=>{
+      setIdd(e.data.secure_url);
+    });
+    toast({
+      title: 'Image has been saved',
+      description: 'Success',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+    })
+    }catch(err){
+      setError(err);
+      toast({
+        title: "An error has occured",
+        description: error,
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      })
+    }
+  };
+  console.log(idd);
   const onSubmit = useCallback(async (data)=>{
     try{
       setError(null);
@@ -65,20 +99,20 @@ export default memo( function Add(hookprop){
       setError(err);
       toast({
         title: "An error has occured",
-        description: "Action failed",
+        description: error,
         status: "error",
         duration: 2000,
         isClosable: true,
       })
     }
-  },[saveAction,setError,toast,onClose]);
+  },[saveAction,setError,toast,onClose,error]);
 
   return (
     <>
     <Button margin={3} leftIcon={<AddIcon />} ref={btnRef} colorScheme='facebook' onClick={onOpen}>
         Add Manga
       </Button>
-  <Modal isOpen={isOpen} placement='right' onClose={onClose} size={'sm'}>
+  <Modal isOpen={isOpen} placement='right' onClose={onClose} size={'md'}>
         <ModalOverlay/>
         <ModalContent>
         <ModalCloseButton/>
@@ -87,9 +121,9 @@ export default memo( function Add(hookprop){
         <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name}>
             <FormLabel>Name</FormLabel>
-        <Input w={'300px'} {...register('name')}/>
+        <Input w={'400px'} {...register('name')}/>
             <FormLabel>Chapters</FormLabel>
-        <Input w={'300px'} type='number' {...register('chapters')}/>
+        <Input w={'400px'} type='number' {...register('chapters')}/>
           <FormLabel>Finished</FormLabel>
         <RadioGroup>
           <HStack spacing='24px'>
@@ -98,21 +132,25 @@ export default memo( function Add(hookprop){
           </HStack>
         </RadioGroup>
         <FormLabel>Author</FormLabel>
-        <Input w={'300px'} {...register('author')}/>
+        <Input w={'400px'} {...register('author')}/>
         
         <FormLabel>Release date</FormLabel>
-        <Input w={'300px'} type={"date"} {...register('release_date')}/>
-
-        
+        <Input w={'400px'} type={"date"} {...register('release_date')}/>
         <FormLabel>Description</FormLabel>
-        <Input w={'300px'} type={"text"} {...register('description')}/>
-        
+        <Input w={'400px'} type={"text"} {...register('description')}/>
+        <FormLabel>Thumbnail</FormLabel>
+        <Input w={'400px'} type={'file'} onChange={(e)=>{setImageSelected(e.target.files[0])}}></Input>
+        <Button onClick={uploadImage}>Upload image</Button>
+        <RadioGroup>
+          <HStack spacing='24px'>
+            <Radio value={idd} {...register('thumbnail')} ><Text w={'200px'} noOfLines={1} overflow={'hidden'}>{idd}</Text></Radio>
+          </HStack>
+        </RadioGroup>
           <FormLabel>Genre</FormLabel>
-        <Select {...register('genreId')} w={"300px"}  placeholder="Selecte a genre">
+        <Select {...register('genreId')} w={"400px"} placeholder="Selecte a genre">
         {genre.map((e, i, a) => {console.log(e.id); return (<option key={e.id} value={e.id}>{e.name}</option>)}) }
         </Select>
       </FormControl>
-    
         <ModalFooter>
         <Button isLoading={isSubmitting} type="submit">Submit</Button>
         </ModalFooter>

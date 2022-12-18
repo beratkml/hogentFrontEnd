@@ -103,7 +103,6 @@ export default function MangaTable(props){
       <Button onClick={handleNext} colorScheme='facebook' disabled={!canNextPage}><ArrowForwardIcon/></Button>      
     </ButtonGroup>
     </Center>
-    
     </TableContainer>
     </>
   )

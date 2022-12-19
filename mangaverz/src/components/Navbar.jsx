@@ -10,7 +10,7 @@ export default function Navbar(){
   return(
     <Card mb={'30px'} boxShadow='lg' borderRadius={'0'}>
       <CardBody>
-        <Flex gap={4} >
+        <Flex display={['none','none','flex','flex']} gap={4} >
           <Button variant='ghost' onClick={toggleColorMode}>{colorMode === 'light' ? <MoonIcon/> : <SunIcon/>}</Button>
           <Link as={ReactLink} to='/'><Button variant='ghost'>Mangaverz</Button></Link>
           <Spacer/>

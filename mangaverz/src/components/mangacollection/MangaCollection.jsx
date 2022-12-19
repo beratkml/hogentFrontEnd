@@ -18,11 +18,9 @@ export default function MangaCollection(){
   console.log(collection);
   return (
     <>
-    <Center>
-    <SimpleGrid  spacing={1}>
+    <SimpleGrid columns={{base:1,md:2,lg:3,xl:4}} spacing={1}>
       {collection.map((e)=><Box key={e.id} as="div"><CollectionItem {...e}/></Box>)}
     </SimpleGrid>
-    </Center>
     </>
   );
 }

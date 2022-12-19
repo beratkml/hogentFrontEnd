@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Center,Heading, Text, Link, Input } from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, Center,Heading, Text, Link, Input, Container } from "@chakra-ui/react";
 import { Link as ReactLink } from "react-router-dom";
 import {ArrowForwardIcon} from '@chakra-ui/icons'
 import Navbar from "../Navbar";
@@ -21,7 +21,6 @@ export default function StartPage(){
       </ButtonGroup>
       </Center>
     </Box>
-    {/* <Footer/> */}
     </>
   )
 }

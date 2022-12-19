@@ -12,7 +12,6 @@ export default function MangaAdminPage(){
     <>
       <Navbar/>
       <MangaList  manga={manga} setManga={setManga} isOpen={isOpen} onOpen={onOpen} onClose={onClose}/>
-      <Footer/>
     </>
   )
 }

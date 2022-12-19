@@ -1,7 +1,8 @@
-import { Box,Card,CardBody,Stack,CardHeader,Text,Divider,CardFooter,ButtonGroup,Button,Image,Heading, Center } from "@chakra-ui/react";
+import { Box,Card,CardBody,Stack,CardHeader,Text,Divider,CardFooter,ButtonGroup,Button,Image,Heading, Center,useColorMode,useColorModeValue } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useCallback,useState } from "react";
 import useMangas from "../../api/mangas";
+import {Image as Cimage} from "cloudinary-react";
 
 export default function CollectionItem(props){
   const {id,start_date,end_date,current_chapter,manga,userId,statusReadingId} = props;
@@ -15,41 +16,29 @@ export default function CollectionItem(props){
   useEffect(()=>{
     handleById();
   },[handleById]);
+  const color = useColorModeValue('gray.200', 'gray.600')
 
   return (
     <>
-    <Card boxShadow='lg' width={['100%','100%','100%','800px']}
-  direction={{ base: 'column', sm: 'row' }}
-  overflow='hidden'
-  variant='outline'
-  height={'100%'}
-  _hover={{
-    boxShadow:'2xl',
-    color: "teal.500",
-  }}>
-  <Image
-    objectFit='cover'
-    maxW={{ base: '100%', sm: '200px' }}
-    src='https://static.standaard.be/Assets/Images_Upload/2010/05/17/B1_GGV2Q67SI.1+GEFVredders.jpg?maxheight=411&maxwidth=731&scale=both'
-    alt='Caffe Latte'
-  />
-  <Stack>
+  <Card border='1px' borderColor={color} m={'20px'} maxW='sm'>
     <CardBody>
-      <Heading size='md'>{manga.name}</Heading>
-      <Text fontSize='sm' py='2'>
-        {manga.description}
-      </Text>
-      <Text fontSize='xs'>
-        Author: {manga.author}
-      </Text>
+      <Center>
+        <Box>
+        <Cimage style={{height:300}} cloudName="dqlnsjr7b" publicId={manga.thumbnail}/>
+        </Box>
+        
+      </Center>
+      
+      <Stack mt='6' spacing='3'>
+      <Heading textAlign={'center'} size='md'>{manga.name}</Heading>
+      </Stack>
     </CardBody>
+    <Divider />
     <CardFooter>
-      <Button variant='solid' colorScheme='blue'>
-        Edit details
-      </Button>
     </CardFooter>
-  </Stack>
-</Card>
+  </Card>
     </>
   );
 }
+
+

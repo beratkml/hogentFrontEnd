@@ -2,7 +2,7 @@ import {useTable, useRowSelect,usePagination} from 'react-table';
 import useMangas from '../../../api/mangas';
 import {COLUMNS} from '../table/columns';
 import { useMemo,useCallback, useEffect } from 'react';
-import { Box, Button, ButtonGroup, Center, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Center, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import {ArrowBackIcon,ArrowForwardIcon} from '@chakra-ui/icons'
 import { Checkbox } from './Checkbox';
 import Delete from '../../topbar crud/Delete';
@@ -50,7 +50,6 @@ export default function MangaTable(props){
   )
 
   const {getTableProps,getTableBodyProps,headerGroups,page,prepareRow,selectedFlatRows,nextPage,previousPage,canNextPage,canPreviousPage} = tableInstance;
-
   const handlePrevious = useCallback(()=>{
     previousPage();
   },[previousPage])
@@ -87,8 +86,8 @@ export default function MangaTable(props){
             return (
             <Tr {...e.getRowProps()}>
               {
-                e.cells.map(e=>{
-                  return <Td {...e.getCellProps()}>{e.render('Cell')}</Td>
+                e.cells.map((e,i)=>{
+                  return <Td {...e.getCellProps()}><Text width={i===7?'200px':'100%'} textOverflow={'ellipsis'} whiteSpace={'nowrap'} overflow={'hidden'}>{e.render('Cell')}</Text></Td>
                 })
               }
             </Tr>

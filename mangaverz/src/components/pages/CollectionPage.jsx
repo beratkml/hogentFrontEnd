@@ -7,7 +7,6 @@ export default function CollectionPage(){
     <>
     <Navbar/>
     <MangaCollection/>
-    <Footer/>
     </>
   )
 }

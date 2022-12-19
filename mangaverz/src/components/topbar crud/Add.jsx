@@ -15,7 +15,8 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Center
+  Center,
+  Textarea
 } from '@chakra-ui/react'
 import { useEffect, useState,useRef, memo } from "react";
 import {AddIcon} from '@chakra-ui/icons';
@@ -99,13 +100,13 @@ export default memo( function Add(hookprop){
       setError(err);
       toast({
         title: "An error has occured",
-        description: error,
+        description: err.message,
         status: "error",
         duration: 2000,
         isClosable: true,
       })
     }
-  },[saveAction,setError,toast,onClose,error]);
+  },[saveAction,setError,toast,onClose]);
 
   return (
     <>
@@ -137,7 +138,7 @@ export default memo( function Add(hookprop){
         <FormLabel>Release date</FormLabel>
         <Input w={'400px'} type={"date"} {...register('release_date')}/>
         <FormLabel>Description</FormLabel>
-        <Input w={'400px'} type={"text"} {...register('description')}/>
+        <Textarea {...register('description')}></Textarea>
         <FormLabel>Thumbnail</FormLabel>
         <Input w={'400px'} type={'file'} onChange={(e)=>{setImageSelected(e.target.files[0])}}></Input>
         <Button onClick={uploadImage}>Upload image</Button>

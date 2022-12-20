@@ -2,11 +2,13 @@ import {useTable, useRowSelect,usePagination} from 'react-table';
 import useMangas from '../../../api/mangas';
 import {COLUMNS} from '../table/columns';
 import { useMemo,useCallback, useEffect } from 'react';
-import { Box, Button, ButtonGroup, Center, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
-import {ArrowBackIcon,ArrowForwardIcon} from '@chakra-ui/icons'
+import { Box, Button, ButtonGroup, Card, CardBody, Center, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import {ArrowBackIcon,ArrowForwardIcon,SettingsIcon} from '@chakra-ui/icons'
 import { Checkbox } from './Checkbox';
 import Delete from '../../topbar crud/Delete';
 import Add from '../../topbar crud/Add';
+import Update from '../../topbar crud/Update';
+import { Link as ReactLink } from "react-router-dom";
 
 export default function MangaTable(props){
   const {manga,setManga,isOpen,onClose,onOpen} = props;
@@ -64,7 +66,7 @@ export default function MangaTable(props){
     <Add isOpen={isOpen} onOpen={onOpen} onClose={onClose}/>
     <Delete setManga={setManga} selectedFlatRows={selectedFlatRows}/>
     </ButtonGroup>
-    <TableContainer>
+    <TableContainer m={'30px'}>
     <Table size={'sm'} {...getTableProps()}>
       <Thead>
         {
@@ -84,20 +86,24 @@ export default function MangaTable(props){
           page.map(e=>{
             prepareRow(e);
             return (
-            <Tr {...e.getRowProps()}>
+              <>
+              <Tr {...e.getRowProps()}>
               {
                 e.cells.map((e,i)=>{
                   return <Td {...e.getCellProps()}><Text width={i===7?'200px':'100%'} textOverflow={'ellipsis'} whiteSpace={'nowrap'} overflow={'hidden'}>{e.render('Cell')}</Text></Td>
                 })
               }
+              <ReactLink to={`/manga/edit/${e.cells[1].value}`} state={{data:e.cells[1].value}}><Button ml={'10px'}><SettingsIcon/></Button></ReactLink>
             </Tr>
+              </>
+            
             )
           })
         }
       </Tbody>
     </Table>
     <Center>
-    <ButtonGroup m={'5px'}>
+    <ButtonGroup m={'20px'}>
       <Button onClick={handlePrevious} colorScheme='facebook' disabled={!canPreviousPage}><ArrowBackIcon/></Button>
       <Button onClick={handleNext} colorScheme='facebook' disabled={!canNextPage}><ArrowForwardIcon/></Button>      
     </ButtonGroup>

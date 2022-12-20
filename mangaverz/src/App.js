@@ -10,40 +10,21 @@ import RequireAuth from './authentication/RequireAuth';
 import AuthLanding from './authentication/AuthLanding';
 import Error from './components/Error';
 import MangaDetails from './components/manga/MangaDetails';
+import MangaEdit from './components/manga/MangaEdit';
 
 function App() {
-  return ( <
-      Routes >
-      <
-      Route path = '/'
-      element = {
-        < StartPage / >
-      }
-      /> <
-      Route path = '/manga'
-      element = {
-        < RequireAuth > < MangaPage / > < /RequireAuth>}/ >
-        <
-        Route path = '/admin-manga'
-        element = {
-          < RequireAuth > < MangaAdminPage / > < /RequireAuth>}/ >
-          <
-          Route path = '/collection'
-          element = {
-            < RequireAuth > < CollectionPage / > < /RequireAuth>}/ >
-            <
-            Route path = '/manga/:id'
-            element = {
-              < RequireAuth > < MangaDetails / > < /RequireAuth>}/ >
-              <
-              Route path = '/login'
-              element = {
-                < AuthLanding / >
-              }
-              /> <
-              /Routes>
+  return (
+    <Routes>
+      <Route path='/' element={<StartPage/>}/>
+      <Route path='/manga' element={<RequireAuth><MangaPage/></RequireAuth>}/>
+      <Route path='/admin-manga' element={<RequireAuth><MangaAdminPage/></RequireAuth>}/>
+      <Route path='/collection' element={<RequireAuth><CollectionPage/></RequireAuth>}/>
+      <Route path='/manga/:id' element={<RequireAuth><MangaDetails/></RequireAuth>}/>
+      <Route path='/manga/edit/:id' element={<RequireAuth><MangaEdit/></RequireAuth>}/>
+      <Route path='/login' element={<AuthLanding/>}/>
+    </Routes>
+    
+  );
+}
 
-            );
-          }
-
-          export default App;
+export default App;

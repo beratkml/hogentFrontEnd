@@ -1,46 +1,35 @@
+import { Text,FormControl,Input,FormLabel,RadioGroup,HStack,Radio,Textarea,Select,Button,useToast} from "@chakra-ui/react";
+import { useLocation,useParams } from "react-router-dom"
 import { useForm } from "react-hook-form";
-import {
-  FormLabel,
-  FormControl,
-  Input,
-  Button,
-  RadioGroup,
-  HStack,
-  Radio,
-  Select,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalCloseButton,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Center,
-  Textarea
-} from '@chakra-ui/react'
-import { useEffect, useState,useRef, memo } from "react";
-import {AddIcon} from '@chakra-ui/icons';
-import {useToast, Text } from '@chakra-ui/react'
+import { useState,useEffect, useCallback,useRef } from "react";
 import useMangas from '../../api/mangas';
-import Error from '../Error';
-import * as GenreAPI from '../../api/genres';
 import axios from "axios";
-import { useCallback } from "react";
-import {Image} from "cloudinary-react";
+import * as GenreAPI from '../../api/genres';
 
-export default memo( function Add(hookprop){
-  const {isOpen,onOpen,onClose} = hookprop;
-  const {saveAction} = useMangas();
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-  } = useForm()
-  const btnRef = useRef()
-  const [genre,setGenre] = useState([]);
-  const toast = useToast();
-  const [error, setError] = useState();
-  
+export default function MangaEdit(){
+  const location = useLocation();
+  const pageId = location.state?.data;
+  const [manga,setManga] = useState([]);
+  const [gGenre,setGenre] = useState([]);
+  const {getMangaById,saveAction,saveEdit} = useMangas();
+  const {name,author,chapters,genre,isFinished,thumbnail,release_date,description} = manga;
+
+
+  const toDateInputString = (date) => {
+    // ISO String without the trailing 'Z' is fine 🙄
+    // (toISOString returns something like 2020-12-05T14:15:74Z,
+    // datetime-local HTML5 input elements expect 2020-12-05T14:15:74, without the (timezone) Z)
+    //
+    // the best thing about standards is that we have so many to chose from!
+    if (!date) return null;
+    if (typeof date !== 'object') {
+      // eslint-disable-next-line no-param-reassign
+      date = new Date(date);
+    }
+    const asString = date.toISOString();
+    return asString.substring(0, asString.indexOf('T'));
+  };
+
   useEffect(()=>{
     const fetchGenres = async()=>{
       const allGenres = await GenreAPI.getAllGenres();
@@ -48,6 +37,32 @@ export default memo( function Add(hookprop){
     }
     fetchGenres();
   },[])
+  const toast = useToast();
+  
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    formState: { errors, isSubmitting },
+  } = useForm()
+
+  const [error,setError] = useState(null);
+
+  const mangas = useCallback(async()=>{
+    const mangaById = await getMangaById(pageId);
+    setManga(mangaById);
+    setValue('name', mangaById.name);
+    setValue('chapters', mangaById.chapters);
+    setValue('description', mangaById.description);
+    setValue('author', mangaById.author);
+    setValue('id', pageId);
+    setValue('release_date', toDateInputString(mangaById.release_date));
+    setValue('genreId', mangaById.genre.id);
+  },[getMangaById,setManga,pageId,setValue])
+
+  useEffect(()=>{
+    mangas();
+  },[mangas]);
 
   const [imageSelected,setImageSelected] = useState("");
   const [idd,setIdd] = useState("");
@@ -59,7 +74,7 @@ export default memo( function Add(hookprop){
     formData.append("upload_preset","xqtbo1he");
 
     axios.post("https://api.cloudinary.com/v1_1/dqlnsjr7b/image/upload",formData).then((e)=>{
-        setIdd(e.data.secure_url);
+      setIdd(e.data.secure_url);
     });
     toast({
       title: 'Image has been saved',
@@ -79,8 +94,9 @@ export default memo( function Add(hookprop){
       })
     }
   };
-  console.log(idd);
+
   const onSubmit = useCallback(async (data)=>{
+    console.log(data);
     try{
       setError(null);
       await saveAction({
@@ -95,7 +111,6 @@ export default memo( function Add(hookprop){
         duration: 2000,
         isClosable: true,
       })
-      onClose();
     }catch(err){
       setError(err);
       toast({
@@ -106,25 +121,17 @@ export default memo( function Add(hookprop){
         isClosable: true,
       })
     }
-  },[saveAction,setError,toast,onClose]);
-
-  return (
+  },[saveAction,setError,toast]);
+  return(
     <>
-    <Button margin={3} leftIcon={<AddIcon />} ref={btnRef} colorScheme='facebook' onClick={onOpen}>
-        Add Manga
-      </Button>
-  <Modal isOpen={isOpen} placement='right' onClose={onClose} size={'md'}>
-        <ModalOverlay/>
-        <ModalContent>
-        <ModalCloseButton/>
-        <ModalHeader>Add manga to global</ModalHeader>
-        <ModalBody>
-        <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name}>
+        <FormLabel>Id</FormLabel>
+        <Input disabled={true} type={'text'} w={'400px'} {...register('id')}/>
             <FormLabel>Name</FormLabel>
         <Input w={'400px'} {...register('name')}/>
             <FormLabel>Chapters</FormLabel>
-        <Input w={'400px'} type='number' {...register('chapters')}/>
+        <Input  w={'400px'} type='number' {...register('chapters')}/>
           <FormLabel>Finished</FormLabel>
         <RadioGroup>
           <HStack spacing='24px'>
@@ -133,34 +140,19 @@ export default memo( function Add(hookprop){
           </HStack>
         </RadioGroup>
         <FormLabel>Author</FormLabel>
-        <Input w={'400px'} {...register('author')}/>
+        <Input  w={'400px'} {...register('author')}/>
         
         <FormLabel>Release date</FormLabel>
-        <Input w={'400px'} type={"date"} {...register('release_date')}/>
+        <Input  w={'400px'} type={"date"} {...register('release_date')}/>
         <FormLabel>Description</FormLabel>
         <Textarea {...register('description')}></Textarea>
-        <FormLabel>Thumbnail</FormLabel>
-        <Input w={'400px'} type={'file'} onChange={(e)=>{setImageSelected(e.target.files[0])}}></Input>
-        <Button onClick={uploadImage}>Upload image</Button>
-        <RadioGroup>
-          <HStack spacing='24px'>
-            {idd?<Radio value={idd} {...register('thumbnail')} ><Text w={'100px'} noOfLines={1} overflow={'hidden'}>{idd}</Text></Radio>:<></>}
-          </HStack>
-        </RadioGroup>
           <FormLabel>Genre</FormLabel>
         <Select {...register('genreId')} w={"400px"} placeholder="Selecte a genre">
-        {genre.map((e, i, a) => {console.log(e.id); return (<option key={e.id} value={e.id}>{e.name}</option>)}) }
+        {gGenre.map((e, i, a) => {console.log(e.id); return (<option key={e.id} value={e.id}>{e.name}</option>)}) }
         </Select>
       </FormControl>
-        <ModalFooter>
         <Button isLoading={isSubmitting} type="submit">Submit</Button>
-        </ModalFooter>
         </form>
-        </ModalBody>
-        </ModalContent>
-      </Modal>
     </>
   )
-  });
-
-  
+}

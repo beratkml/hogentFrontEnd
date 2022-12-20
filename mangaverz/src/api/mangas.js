@@ -30,7 +30,7 @@ const useMangas = () => {
         Authorization: `Bearer ${token}`
       }
     });
-    return response.data.items;
+    return response.data;
   }, [getAccessTokenSilently]);
 
   const saveAction = useCallback(async (manga) => {
@@ -41,7 +41,7 @@ const useMangas = () => {
     } = manga;
     await axios({
       method: id ? 'PUT' : 'POST',
-      url: baseurl,
+      url: `${baseurl}/${id?id:""}`,
       data: data,
       headers: {
         Authorization: `Bearer ${token}`
@@ -57,7 +57,7 @@ const useMangas = () => {
     getAllManga,
     deleteMangaById,
     saveAction,
-    getMangaById
+    getMangaById,
   }
 }
 

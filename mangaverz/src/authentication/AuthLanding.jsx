@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { Card, CardBody, CardFooter, CardHeader, Center, Spacer, Text } from '@chakra-ui/react';
 import { Navigate } from 'react-router-dom';
+import Navbar from '../components/Navbar'
 import Error from '../components/Error';
 import LoginButton from './LoginButton';
 
@@ -31,6 +32,8 @@ export default function AuthLanding() {
 
   if (!isLoading && !isAuthenticated) {
     return (
+      <>
+      <Navbar/>
       <Center>
         <Card>
           <CardHeader>Login required</CardHeader>
@@ -43,6 +46,7 @@ export default function AuthLanding() {
           </CardBody>
         </Card>
       </Center>
+      </>
     );
   }
 

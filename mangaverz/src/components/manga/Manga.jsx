@@ -1,4 +1,4 @@
-import {ButtonGroup, CardHeader, Center, Divider, Heading,useDisclosure,useColorMode,useColorModeValue } from '@chakra-ui/react'
+import {ButtonGroup, CardHeader, Center, Divider, Heading,useDisclosure,useColorModeValue } from '@chakra-ui/react'
 import { Card, CardBody, CardFooter,Stack,Text,Button, ScaleFade,Box } from '@chakra-ui/react'
 import { useCallback } from 'react';
 import { Link as ReactLink } from "react-router-dom";
@@ -9,10 +9,8 @@ import MangaDetails from './MangaDetails';
 import {Image} from "cloudinary-react";
 
 export default function Manga(props){
-  const { toggleColorMode } = useColorMode()
-
-  const color = useColorModeValue('gray.200', 'gray.600')
-  const {id,name,description,author,thumbnail,chapters,genre} = props;
+  const color = useColorModeValue('gray.200', 'gray.600');
+  const {id,name,description,author,thumbnail} = props;
   return(
     <Card border='1px' borderColor={color} m={'20px'} maxW='sm'>
     <CardBody>

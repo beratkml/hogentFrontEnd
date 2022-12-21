@@ -89,7 +89,7 @@ export default memo( function Add(hookprop){
         isFinished:data.isFinished==='true'?true:false,
       });
       toast({
-        title: 'Manga has been added',
+        title: 'OK✅',
         description: 'Success',
         status: 'success',
         duration: 2000,
@@ -99,7 +99,7 @@ export default memo( function Add(hookprop){
     }catch(err){
       setError(err);
       toast({
-        title: "An error has occured",
+        title: "An error has occured❌",
         description: err.message,
         status: "error",
         duration: 2000,
@@ -113,18 +113,23 @@ export default memo( function Add(hookprop){
     <Button margin={3} leftIcon={<AddIcon />} ref={btnRef} colorScheme='facebook' onClick={onOpen}>
         Add Manga
       </Button>
-  <Modal isOpen={isOpen} placement='right' onClose={onClose} size={'md'}>
+  <Modal isOpen={isOpen} placement='right' onClose={onClose} size={['sm','md']}>
         <ModalOverlay/>
+        <Center>
         <ModalContent>
         <ModalCloseButton/>
         <ModalHeader>Add manga to global</ModalHeader>
+        
         <ModalBody>
+          
+
+          
         <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name}>
             <FormLabel>Name</FormLabel>
-        <Input w={'400px'} {...register('name')}/>
+        <Input w={['300px','400px']} {...register('name')}/>
             <FormLabel>Chapters</FormLabel>
-        <Input w={'400px'} type='number' {...register('chapters')}/>
+        <Input w={['300px','400px']} type='number' {...register('chapters')}/>
           <FormLabel>Finished</FormLabel>
         <RadioGroup>
           <HStack spacing='24px'>
@@ -133,14 +138,14 @@ export default memo( function Add(hookprop){
           </HStack>
         </RadioGroup>
         <FormLabel>Author</FormLabel>
-        <Input w={'400px'} {...register('author')}/>
+        <Input w={['300px','400px']} {...register('author')}/>
         
         <FormLabel>Release date</FormLabel>
-        <Input w={'400px'} type={"date"} {...register('release_date')}/>
+        <Input w={['300px','400px']} type={"date"} {...register('release_date')}/>
         <FormLabel>Description</FormLabel>
-        <Textarea {...register('description')}></Textarea>
+        <Textarea  w={['300px','400px']} {...register('description')}></Textarea>
         <FormLabel>Thumbnail</FormLabel>
-        <Input w={'400px'} type={'file'} onChange={(e)=>{setImageSelected(e.target.files[0])}}></Input>
+        <Input w={['300px','400px']} type={'file'} onChange={(e)=>{setImageSelected(e.target.files[0])}}></Input>
         <Button onClick={uploadImage}>Upload image</Button>
         <RadioGroup>
           <HStack spacing='24px'>
@@ -148,7 +153,7 @@ export default memo( function Add(hookprop){
           </HStack>
         </RadioGroup>
           <FormLabel>Genre</FormLabel>
-        <Select {...register('genreId')} w={"400px"} placeholder="Selecte a genre">
+        <Select {...register('genreId')} w={['300px','400px']} placeholder="Selecte a genre">
         {genre.map((e, i, a) => {console.log(e.id); return (<option key={e.id} value={e.id}>{e.name}</option>)}) }
         </Select>
       </FormControl>
@@ -156,8 +161,11 @@ export default memo( function Add(hookprop){
         <Button isLoading={isSubmitting} type="submit">Submit</Button>
         </ModalFooter>
         </form>
+        
         </ModalBody>
+        
         </ModalContent>
+        </Center>
       </Modal>
     </>
   )

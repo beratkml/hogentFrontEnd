@@ -1,10 +1,11 @@
-import { Text,FormControl,Input,FormLabel,RadioGroup,HStack,Radio,Textarea,Select,Button,useToast} from "@chakra-ui/react";
+import { Text,FormControl,Input,FormLabel,RadioGroup,HStack,Radio,Textarea,Select,Button,useToast, Card, CardBody, Center,useColorModeValue} from "@chakra-ui/react";
 import { useLocation,useParams } from "react-router-dom"
 import { useForm } from "react-hook-form";
 import { useState,useEffect, useCallback,useRef } from "react";
 import useMangas from '../../api/mangas';
 import axios from "axios";
 import * as GenreAPI from '../../api/genres';
+import Navbar from '../Navbar'
 
 export default function MangaEdit(){
   const location = useLocation();
@@ -66,6 +67,7 @@ export default function MangaEdit(){
 
   const [imageSelected,setImageSelected] = useState("");
   const [idd,setIdd] = useState("");
+  const color = useColorModeValue('gray.200', 'gray.600');
   const uploadImage = ()=>{
     try{
       setError(null);
@@ -105,8 +107,8 @@ export default function MangaEdit(){
         isFinished:data.isFinished==='true'?true:false,
       });
       toast({
-        title: 'Manga has been added',
-        description: 'Success',
+        title: 'OK✅',
+        description: 'your changes have been successfully saved',
         status: 'success',
         duration: 2000,
         isClosable: true,
@@ -114,7 +116,7 @@ export default function MangaEdit(){
     }catch(err){
       setError(err);
       toast({
-        title: "An error has occured",
+        title: "An error has occured❌",
         description: err.message,
         status: "error",
         duration: 2000,
@@ -124,14 +126,19 @@ export default function MangaEdit(){
   },[saveAction,setError,toast]);
   return(
     <>
-    <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={errors.name}>
+    <Navbar/>
+    <Center>
+    <Card border='1px' borderColor={color} mb={['0','20px','20px','20px']} w={['sm','md']}>
+      <CardBody>
+      <Center>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormControl isInvalid={errors.name}>          
         <FormLabel>Id</FormLabel>
-        <Input disabled={true} type={'text'} w={'400px'} {...register('id')}/>
+        <Input disabled={true} type={'text'} w={'300px'} {...register('id')}/>
             <FormLabel>Name</FormLabel>
-        <Input w={'400px'} {...register('name')}/>
+        <Input w={'300px'} {...register('name')}/>
             <FormLabel>Chapters</FormLabel>
-        <Input  w={'400px'} type='number' {...register('chapters')}/>
+        <Input  w={'300px'} type='number' {...register('chapters')}/>
           <FormLabel>Finished</FormLabel>
         <RadioGroup>
           <HStack spacing='24px'>
@@ -140,19 +147,24 @@ export default function MangaEdit(){
           </HStack>
         </RadioGroup>
         <FormLabel>Author</FormLabel>
-        <Input  w={'400px'} {...register('author')}/>
+        <Input  w={'300px'} {...register('author')}/>
         
         <FormLabel>Release date</FormLabel>
-        <Input  w={'400px'} type={"date"} {...register('release_date')}/>
+        <Input  w={'300px'} type={"date"} {...register('release_date')}/>
         <FormLabel>Description</FormLabel>
         <Textarea {...register('description')}></Textarea>
           <FormLabel>Genre</FormLabel>
-        <Select {...register('genreId')} w={"400px"} placeholder="Selecte a genre">
+        <Select {...register('genreId')} w={'300px'} placeholder="Selecte a genre">
         {gGenre.map((e, i, a) => {console.log(e.id); return (<option key={e.id} value={e.id}>{e.name}</option>)}) }
         </Select>
       </FormControl>
         <Button isLoading={isSubmitting} type="submit">Submit</Button>
         </form>
+        </Center>
+      </CardBody>
+    </Card>
+    </Center>
+    
     </>
   )
 }

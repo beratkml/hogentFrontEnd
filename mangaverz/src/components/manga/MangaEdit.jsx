@@ -107,7 +107,7 @@ export default function MangaEdit(){
         isFinished:data.isFinished==='true'?true:false,
       });
       toast({
-        title: 'OK✅',
+        title: 'OK',
         description: 'your changes have been successfully saved',
         status: 'success',
         duration: 2000,
@@ -116,7 +116,7 @@ export default function MangaEdit(){
     }catch(err){
       setError(err);
       toast({
-        title: "An error has occured❌",
+        title: "An error has occured",
         description: err.message,
         status: "error",
         duration: 2000,

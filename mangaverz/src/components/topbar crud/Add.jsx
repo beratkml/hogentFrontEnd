@@ -89,7 +89,7 @@ export default memo( function Add(hookprop){
         isFinished:data.isFinished==='true'?true:false,
       });
       toast({
-        title: 'OK✅',
+        title: 'OK',
         description: 'Success',
         status: 'success',
         duration: 2000,
@@ -99,7 +99,7 @@ export default memo( function Add(hookprop){
     }catch(err){
       setError(err);
       toast({
-        title: "An error has occured❌",
+        title: "An error has occured",
         description: err.message,
         status: "error",
         duration: 2000,
@@ -121,9 +121,6 @@ export default memo( function Add(hookprop){
         <ModalHeader>Add manga to global</ModalHeader>
         
         <ModalBody>
-          
-
-          
         <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name}>
             <FormLabel>Name</FormLabel>

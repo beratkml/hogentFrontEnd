@@ -10,7 +10,6 @@ export default function Navbar(){
   const { colorMode, toggleColorMode } = useColorMode()
   const [display,setDisplay] = useState('none');
   const color = useColorModeValue('gray.50', 'gray.700');
-  const { isOpen, onToggle } = useDisclosure()
   return(
     <>
     <Card mb={'30px'} boxShadow='lg' borderRadius={'0'}>

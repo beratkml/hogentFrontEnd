@@ -23,6 +23,16 @@ const useCollections = () => {
     return response.data.items;
   }, [getAccessTokenSilently])
 
+  const getAndFilterCollectionById = useCallback(async (id) => {
+    const token = await getAccessTokenSilently();
+    const response = await axios.get(`${baseurl}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data.items;
+  }, [getAccessTokenSilently])
+
   const saveAction = useCallback(async (manga) => {
     const token = await getAccessTokenSilently();
     const {
@@ -46,7 +56,8 @@ const useCollections = () => {
   return {
     getAllCollection,
     deleteCollectionById,
-    saveAction
+    saveAction,
+    getAndFilterCollectionById
   }
 }
 

@@ -4,7 +4,7 @@ import { Button } from '@chakra-ui/react';
 function LogoutButton() {
   const { logout } = useAuth0();
   return (
-    <Button
+    <Button mb={[5,5,0,0]} mt={[2,2,0,0]}
       type="button"
       className="btn btn-danger"
       onClick={() => logout({

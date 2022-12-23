@@ -51,7 +51,7 @@ export default function Add(props){
   
   return (
     <>
-    <Button leftIcon={<AddIcon/>} onClick={onOpen} variant={'solid'} colorScheme={'green'}>collection</Button>
+    <Button data-cy="add-button" leftIcon={<AddIcon/>} onClick={onOpen} variant={'solid'} colorScheme={'green'}>collection</Button>
     <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -59,30 +59,24 @@ export default function Add(props){
           <ModalCloseButton />
           <ModalBody>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <FormControl isInvalid={errors.name}>
+              <FormControl isInvalid={errors}>
               <FormLabel>Current chapter</FormLabel>
-                <NumberInput {...register('current_chapter')} max={50} min={10}>
-                  <NumberInputField />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                </NumberInput>
+              <Input data-cy="chapter_input" w={['300px','400px']} type='number' {...register('current_chapter')}/>
               <FormLabel>Start date</FormLabel>
-              <Input w={'300px'} type={"date"} {...register('start_date')}/>
+              <Input data-cy='start_date-button' w={'300px'} type={"date"} {...register('start_date')}/>
               <FormLabel>End date</FormLabel>
-              <Input w={'300px'} type={"date"} {...register('end_date')}/>
+              <Input data-cy='end_date-button' w={'300px'} type={"date"} {...register('end_date')}/>
               </FormControl>
-              <FormLabel>Genre</FormLabel>
-                <Select {...register('status_reading')} w={"300px"}  placeholder="Status of reading">
+              <FormLabel>Status</FormLabel>
+                <Select data-cy='status-button' {...register('status_reading')} w={"300px"}  placeholder="Status of reading">
                   {status.map((e, i, a) => {console.log(e.id); return (<option key={e.id} value={e.id}>{e.type}</option>)}) }
                 </Select>
               
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
+            <Button data-cy='close-button' colorScheme='blue' mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button isLoading={isSubmitting} type={'submit'} leftIcon={<AddIcon/>} variant='ghost'>Add</Button>
+            <Button data-cy='submit-button' isLoading={isSubmitting} type={'submit'} leftIcon={<AddIcon/>} variant='ghost'>Add</Button>
             
           </ModalFooter>
           </form>

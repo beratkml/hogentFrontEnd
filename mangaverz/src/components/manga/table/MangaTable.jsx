@@ -63,8 +63,8 @@ export default function MangaTable(props){
   return(
     <>
     <ButtonGroup>
-    <Add isOpen={isOpen} onOpen={onOpen} onClose={onClose}/>
-    <Delete setManga={setManga} selectedFlatRows={selectedFlatRows}/>
+    <Add data-cy="add-button" isOpen={isOpen} onOpen={onOpen} onClose={onClose}/>
+    <Delete data-cy="delete-button" setManga={setManga} selectedFlatRows={selectedFlatRows}/>
     </ButtonGroup>
     <TableContainer m={'30px'}>
     <Table size={'sm'} {...getTableProps()}>
@@ -93,7 +93,7 @@ export default function MangaTable(props){
                   return <Td {...e.getCellProps()}><Text width={i===7?'200px':'100%'} textOverflow={'ellipsis'} whiteSpace={'nowrap'} overflow={'hidden'}>{e.render('Cell')}</Text></Td>
                 })
               }
-              <ReactLink to={`/manga/edit/${e.cells[1].value}`} state={{data:e.cells[1].value}}><Button ml={'10px'}><SettingsIcon/></Button></ReactLink>
+              <ReactLink to={`/manga/edit/${e.cells[1].value}`} state={{data:e.cells[1].value}}><Button data-cy="edit-button" ml={'10px'}><SettingsIcon/></Button></ReactLink>
             </Tr>
               </>
             

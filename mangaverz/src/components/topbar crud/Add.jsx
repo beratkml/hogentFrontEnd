@@ -110,7 +110,7 @@ export default memo( function Add(hookprop){
 
   return (
     <>
-    <Button margin={3} leftIcon={<AddIcon />} ref={btnRef} colorScheme='facebook' onClick={onOpen}>
+    <Button data-cy="add-button" margin={3} leftIcon={<AddIcon />} ref={btnRef} colorScheme='facebook' onClick={onOpen}>
         Add Manga
       </Button>
   <Modal isOpen={isOpen} placement='right' onClose={onClose} size={['sm','md']}>
@@ -124,33 +124,33 @@ export default memo( function Add(hookprop){
         <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name}>
             <FormLabel>Name</FormLabel>
-        <Input w={['300px','400px']} {...register('name')}/>
+        <Input data-cy="name_input" w={['300px','400px']} {...register('name')}/>
             <FormLabel>Chapters</FormLabel>
-        <Input w={['300px','400px']} type='number' {...register('chapters')}/>
+        <Input data-cy="chapter_input" w={['300px','400px']} type='number' {...register('chapters')}/>
           <FormLabel>Finished</FormLabel>
         <RadioGroup>
           <HStack spacing='24px'>
-            <Radio value='true' {...register('isFinished')}>Yes</Radio>
+            <Radio data-cy="isFinished_input" value='true' {...register('isFinished')}>Yes</Radio>
             <Radio value='false' {...register('isFinished')}>No</Radio>
           </HStack>
         </RadioGroup>
         <FormLabel>Author</FormLabel>
-        <Input w={['300px','400px']} {...register('author')}/>
+        <Input data-cy="author_input" w={['300px','400px']} {...register('author')}/>
         
         <FormLabel>Release date</FormLabel>
-        <Input w={['300px','400px']} type={"date"} {...register('release_date')}/>
+        <Input data-cy="date_input" w={['300px','400px']} type={"date"} {...register('release_date')}/>
         <FormLabel>Description</FormLabel>
-        <Textarea  w={['300px','400px']} {...register('description')}></Textarea>
+        <Textarea data-cy="desc_input" w={['300px','400px']} {...register('description')}></Textarea>
         <FormLabel>Thumbnail</FormLabel>
-        <Input w={['300px','400px']} type={'file'} onChange={(e)=>{setImageSelected(e.target.files[0])}}></Input>
-        <Button onClick={uploadImage}>Upload image</Button>
+        <Input data-cy="image_input" w={['300px','400px']} type={'file'} onChange={(e)=>{setImageSelected(e.target.files[0])}}></Input>
+        <Button data-cy="imageS_input" onClick={uploadImage}>Upload image</Button>
         <RadioGroup>
           <HStack spacing='24px'>
-            {idd?<Radio value={idd} {...register('thumbnail')} ><Text w={'100px'} noOfLines={1} overflow={'hidden'}>{idd}</Text></Radio>:<></>}
+            {idd?<Radio data-cy="imageL_input" value={idd} {...register('thumbnail')} ><Text w={'100px'} noOfLines={1} overflow={'hidden'}>{idd}</Text></Radio>:<></>}
           </HStack>
         </RadioGroup>
           <FormLabel>Genre</FormLabel>
-        <Select {...register('genreId')} w={['300px','400px']} placeholder="Selecte a genre">
+        <Select data-cy="genre_input" {...register('genreId')} w={['300px','400px']} placeholder="Selecte a genre">
         {genre.map((e, i, a) => {console.log(e.id); return (<option key={e.id} value={e.id}>{e.name}</option>)}) }
         </Select>
       </FormControl>

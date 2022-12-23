@@ -14,10 +14,10 @@ export default function StartPage(){
     <Navbar/>
     <Box marginTop={40}>
       <Heading align={'center'}>Mangaverz</Heading>
-      <Text align={'center'} fontSize='xl'>Add your favorite manga to your collection</Text>
+      <Text data-cy="manga_title" align={'center'} fontSize='xl'>Add your favorite manga to your collection</Text>
       <Center>
       <ButtonGroup>
-      <Link as={ReactLink} to='/manga'><Button rightIcon={<ArrowForwardIcon/>} >Discover mangas</Button></Link>
+      <Link as={ReactLink} to='/manga'><Button data-cy="discover" rightIcon={<ArrowForwardIcon/>} >Discover mangas</Button></Link>
       </ButtonGroup>
       </Center>
     </Box>

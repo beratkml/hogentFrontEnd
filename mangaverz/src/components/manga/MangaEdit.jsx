@@ -134,31 +134,31 @@ export default function MangaEdit(){
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name}>          
         <FormLabel>Id</FormLabel>
-        <Input disabled={true} type={'text'} w={'300px'} {...register('id')}/>
+        <Input  disabled={true} type={'text'} w={'300px'} {...register('id')}/>
             <FormLabel>Name</FormLabel>
-        <Input w={'300px'} {...register('name')}/>
+        <Input data-cy="name-button" w={'300px'} {...register('name')}/>
             <FormLabel>Chapters</FormLabel>
-        <Input  w={'300px'} type='number' {...register('chapters')}/>
+        <Input data-cy="chapters-button" w={'300px'} type='number' {...register('chapters')}/>
           <FormLabel>Finished</FormLabel>
         <RadioGroup>
           <HStack spacing='24px'>
-            <Radio value='true' {...register('isFinished')}>Yes</Radio>
+            <Radio data-cy="finish-button" value='true' {...register('isFinished')}>Yes</Radio>
             <Radio value='false' {...register('isFinished')}>No</Radio>
           </HStack>
         </RadioGroup>
         <FormLabel>Author</FormLabel>
-        <Input  w={'300px'} {...register('author')}/>
+        <Input data-cy="author-button" w={'300px'} {...register('author')}/>
         
         <FormLabel>Release date</FormLabel>
-        <Input  w={'300px'} type={"date"} {...register('release_date')}/>
+        <Input data-cy="date-button" w={'300px'} type={"date"} {...register('release_date')}/>
         <FormLabel>Description</FormLabel>
-        <Textarea {...register('description')}></Textarea>
+        <Textarea data-cy="desc-button" {...register('description')}></Textarea>
           <FormLabel>Genre</FormLabel>
-        <Select {...register('genreId')} w={'300px'} placeholder="Selecte a genre">
+        <Select data-cy="genre-button" {...register('genreId')} w={'300px'} placeholder="Selecte a genre">
         {gGenre.map((e, i, a) => {console.log(e.id); return (<option key={e.id} value={e.id}>{e.name}</option>)}) }
         </Select>
       </FormControl>
-        <Button isLoading={isSubmitting} type="submit">Submit</Button>
+        <Button data-cy="submit-button" isLoading={isSubmitting} type="submit">Submit</Button>
         </form>
         </Center>
       </CardBody>

@@ -47,6 +47,7 @@ export default function CollectionEdit(p){
         isClosable: true,
       })
       onClose();
+      window.location.reload();
     }catch(err){
       setError(err);
       toast({

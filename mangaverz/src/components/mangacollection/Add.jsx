@@ -12,6 +12,7 @@ import { Button,Modal,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  useToast,
   ModalCloseButton,useDisclosure,Select } from "@chakra-ui/react";
 import {AddIcon} from "@chakra-ui/icons";
 import { useForm } from "react-hook-form";
@@ -25,6 +26,8 @@ export default function Add(props){
   const {saveAction} = useCollections();
   const [status,setStatus] = useState([]);
   const {getAllStatuses} = useStatus();
+  const toast = useToast();
+  const [error, setError] = useState();
 
   useEffect(()=>{
     const fetchStatus = async()=>{
@@ -41,12 +44,33 @@ export default function Add(props){
   } = useForm()
 
   const onSubmit = async(data)=>{
-    await saveAction({
-      ...data,
-      current_chapter:parseInt(data.current_chapter),
-      mangaId:mangaId,
-      status_reading:data.status_reading,
-    })
+    try{
+      await saveAction({
+        ...data,
+        current_chapter:parseInt(data.current_chapter),
+        mangaId:mangaId,
+        status_reading:data.status_reading,
+      })
+      
+      toast({
+        title: 'OK',
+        description: 'Success',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
+      onClose();
+    }catch(err){
+      setError(err);
+      toast({
+        title: "An error has occured",
+        description: err.message,
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      })
+    }
+    
   }
   
   return (

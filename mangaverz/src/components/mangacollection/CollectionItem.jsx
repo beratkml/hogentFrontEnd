@@ -1,6 +1,6 @@
 import { Box,Card,AlertDialogBody,AlertDialogFooter,AlertDialog,AlertDialogOverlay,AlertDialogContent,AlertDialogHeader,CardBody,Stack,CardHeader,Text,Divider,CardFooter,ButtonGroup,Button,Image,Heading, Center,useColorMode,useColorModeValue,useDisclosure } from "@chakra-ui/react";
 import {DeleteIcon,SettingsIcon} from '@chakra-ui/icons'
-import { useEffect,useRef } from "react";
+import { memo, useEffect,useRef } from "react";
 import { useCallback,useState } from "react";
 import { Link as ReactLink } from "react-router-dom";
 import useMangas from "../../api/mangas";
@@ -9,7 +9,7 @@ import {Image as Cimage} from "cloudinary-react";
 import Delete from "./Delete";
 import CollectionEdit from "./CollectionEdit";
 
-export default function CollectionItem(props){
+function CollectionItem(props){
   const {id,current_chapter, start_date,end_date,collection,manga,user,setCollection,onClose,onOpen,isOpen,collectionId} = props;
 
   const [mangaByIdd,setMangaById] = useState([]);
@@ -68,6 +68,8 @@ export default function CollectionItem(props){
   </Card>
     </>
   );
-}
+};
+
+export default memo(CollectionItem)
 
 

@@ -21,7 +21,7 @@ export default function MangaCollection(props){
       setCollection(collections);
     };
     refreshCollection();
-  },[getAndFilterCollectionById,nickname,setCollection]);
+  },[getAndFilterCollectionById,nickname,setCollection,isOpen]);
 
   // const test = useCallback(async()=>{
   //   setUserr(user.sub);

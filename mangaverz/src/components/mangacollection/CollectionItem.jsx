@@ -51,12 +51,11 @@ export default function CollectionItem(props){
         
       </Center>
       
-      <Stack mt='6' spacing='3'>
+      <Stack mt='1' spacing='3'>
       <Heading textAlign={'center'} size='md'>{manga.name}</Heading>
       <Text>Current chapter: {current_chapter}</Text>
       <Text>start date: {toDateInputString(start_date)}</Text>
       <Text>end date: {toDateInputString(end_date)}</Text>
-      <Text>end date: {end_date}</Text>
       </Stack>
     </CardBody>
     <Divider />

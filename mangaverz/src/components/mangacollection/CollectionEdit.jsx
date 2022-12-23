@@ -1,4 +1,4 @@
-import {AddIcon} from '@chakra-ui/icons'
+import {AddIcon,SettingsIcon} from '@chakra-ui/icons'
 import{color, useDisclosure,useColorModeValue} from '@chakra-ui/react'
 import {useForm} from 'react-hook-form'
 import {useRef,useCallback,useState,useEffect} from 'react'
@@ -115,8 +115,8 @@ export default function CollectionEdit(p){
   
   return (
     <>
-      <Button onClick={b}  leftIcon={<AddIcon />} colorScheme={'green'} >
-        Create user
+      <Button onClick={b}  leftIcon={<SettingsIcon />} colorScheme={'green'} >
+        Edit status
       </Button>
       <Modal isOpen={isOpen} placement='right' onClose={onClose} size={['sm','md']}>
         <ModalOverlay/>

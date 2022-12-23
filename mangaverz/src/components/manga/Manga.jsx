@@ -1,6 +1,7 @@
 import {ButtonGroup, CardHeader, Center, Divider, Heading,useDisclosure,useColorModeValue } from '@chakra-ui/react'
 import { Card, CardBody, CardFooter,Stack,Text,Button, ScaleFade,Box } from '@chakra-ui/react'
 import { useCallback } from 'react';
+import {ViewIcon} from '@chakra-ui/icons'
 import { Link as ReactLink } from "react-router-dom";
 import {Link} from '@chakra-ui/react'
 import useCollection from '../../api/collection'
@@ -34,7 +35,7 @@ export default function Manga(props){
     <Divider />
     <CardFooter>
       <ButtonGroup spacing='2'>
-      <ReactLink to={`/manga/${id}`} state={{data:props}}><Button>See details</Button></ReactLink>
+      <ReactLink to={`/manga/${id}`} state={{data:props}}><Button leftIcon={<ViewIcon/>}>See details</Button></ReactLink>
         <Add mangaId={id}/>
       </ButtonGroup>
     </CardFooter>

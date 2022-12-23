@@ -16,7 +16,14 @@ import {
   ModalBody,
   ModalFooter,
   Center,
-  Textarea
+  Textarea,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter
 } from '@chakra-ui/react'
 import { useEffect, useState,useRef, memo } from "react";
 import {AddIcon} from '@chakra-ui/icons';
@@ -113,14 +120,14 @@ export default memo( function Add(hookprop){
     <Button data-cy="add-button" margin={3} leftIcon={<AddIcon />} ref={btnRef} colorScheme='facebook' onClick={onOpen}>
         Add Manga
       </Button>
-  <Modal isOpen={isOpen} placement='right' onClose={onClose} size={['sm','md']}>
-        <ModalOverlay/>
+    <Drawer isOpen={isOpen} placement='right' onClose={onClose} size={['sm','md']}>
+        <DrawerOverlay/>
         <Center>
-        <ModalContent>
-        <ModalCloseButton/>
-        <ModalHeader>Add manga to global</ModalHeader>
+        <DrawerContent>
+        <DrawerCloseButton/>
+        <DrawerHeader>Add manga to global</DrawerHeader>
         
-        <ModalBody>
+        <DrawerBody>
         <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.name}>
             <FormLabel>Name</FormLabel>
@@ -154,16 +161,16 @@ export default memo( function Add(hookprop){
         {genre.map((e, i, a) => {console.log(e.id); return (<option key={e.id} value={e.id}>{e.name}</option>)}) }
         </Select>
       </FormControl>
-        <ModalFooter>
+        <DrawerFooter>
         <Button isLoading={isSubmitting} type="submit">Submit</Button>
-        </ModalFooter>
+        </DrawerFooter>
         </form>
         
-        </ModalBody>
+        </DrawerBody>
         
-        </ModalContent>
+        </DrawerContent>
         </Center>
-      </Modal>
+      </Drawer>
     </>
   )
   });

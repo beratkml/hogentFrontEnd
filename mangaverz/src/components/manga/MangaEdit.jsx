@@ -6,6 +6,9 @@ import useMangas from '../../api/mangas';
 import axios from "axios";
 import * as GenreAPI from '../../api/genres';
 import Navbar from '../Navbar'
+import {
+  useAuth0
+} from '@auth0/auth0-react';
 
 export default function MangaEdit(){
   const location = useLocation();
@@ -14,7 +17,6 @@ export default function MangaEdit(){
   const [gGenre,setGenre] = useState([]);
   const {getMangaById,saveAction,saveEdit} = useMangas();
   const {name,author,chapters,genre,isFinished,thumbnail,release_date,description} = manga;
-
 
   const toDateInputString = (date) => {
     // ISO String without the trailing 'Z' is fine 🙄
@@ -30,7 +32,6 @@ export default function MangaEdit(){
     const asString = date.toISOString();
     return asString.substring(0, asString.indexOf('T'));
   };
-
   useEffect(()=>{
     const fetchGenres = async()=>{
       const allGenres = await GenreAPI.getAllGenres();

@@ -1,4 +1,4 @@
-import { Box, Center, SimpleGrid } from "@chakra-ui/react";
+import { Box, Center, SimpleGrid,useDisclosure } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useEffect,useState } from "react";
 import useCollections from "../../api/collection";
@@ -6,13 +6,13 @@ import useUser from "../../api/user";
 import CollectionItem from "./CollectionItem";
 import { useAuth0 } from '@auth0/auth0-react';
 
-export default function MangaCollection(){
-  const [collection,setCollection] = useState([]);
+export default function MangaCollection(props){
+  const {collection,setCollection} = props
   const [nickname,setNickname] = useState("");
   const { user, isAuthenticated } = useAuth0();
   const {getAllCollection,getAndFilterCollectionById} = useCollections([]);
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const {getUser} = useUser([]);
-
 
   
   useEffect(()=>{
@@ -21,7 +21,7 @@ export default function MangaCollection(){
       setCollection(collections);
     };
     refreshCollection();
-  },[getAndFilterCollectionById,nickname]);
+  },[getAndFilterCollectionById,nickname,setCollection]);
 
   // const test = useCallback(async()=>{
   //   setUserr(user.sub);
@@ -36,12 +36,12 @@ export default function MangaCollection(){
     getUserFrom();
   },[getUserFrom])
 
-  console.log(nickname);
+  console.log(collection);
   
   return (
     <>
     <SimpleGrid columns={{base:1,md:2,lg:3,xl:4}} spacing={1}>
-      {collection.map((e)=><Box key={e.id} as="div"><CollectionItem {...e}/></Box>)}
+      {collection.map((e)=><Box key={e.id} as="div"><CollectionItem isOpen={isOpen} onOpen={onOpen} onClose={onClose} collection={collection} setCollection={setCollection} user={nickname} {...e}/></Box>)}
     </SimpleGrid>
     </>
   );

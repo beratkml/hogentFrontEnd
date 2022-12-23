@@ -12,8 +12,8 @@
 
 **Logingegevens**
 
-- Gebruikersnaam/e-mailadres:
-- Wachtwoord:
+- Gebruikersnaam/e-mailadres: testuser@gmail.com
+- Wachtwoord: Rootroot123
 
 > Vul eventueel aan met extra accounts voor administrators of andere rollen.
 
